@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "669057741792",
+    "firebase_url": "https://fypfoodhive.firebaseio.com",
+    "project_id": "fypfoodhive",
+    "storage_bucket": "fypfoodhive.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:669057741792:android:433261d422bb9cd3",
+        "android_client_info": {
+          "package_name": "com.example.evaaherne.fypfoodhive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "669057741792-rtpc8pm2sarokgk8ga66v6d39qkg7dik.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.evaaherne.fypfoodhive",
+            "certificate_hash": "47f418eabc747509898e955ea438c8ec6fbfc170"
+          }
+        },
+        {
+          "client_id": "669057741792-43gqe7ct68acsfvskmsu79lc3vroi73o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwZGL9x2k1BRomIIaaz3ghJ587HGj2W2E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "669057741792-43gqe7ct68acsfvskmsu79lc3vroi73o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
