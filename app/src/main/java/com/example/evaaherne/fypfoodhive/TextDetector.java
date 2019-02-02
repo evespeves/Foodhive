@@ -47,7 +47,7 @@ public class TextDetector extends AppCompatActivity {
         pickBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                pickImage();
+               // pickImage();
             }
         });
         snapBtn.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +76,7 @@ public class TextDetector extends AppCompatActivity {
         }
     }
 
-    private void pickImage() {
+//    private void pickImage() {
 //        Intent intent = new Intent();
 //        //Show only images, no videos or anything else
 //        intent.setType("image/*");
@@ -85,9 +85,9 @@ public class TextDetector extends AppCompatActivity {
 //        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);    }
 
 
-        Intent pickPictureIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(pickPictureIntent, RESULT );
-    }
+//        Intent pickPictureIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        startActivityForResult(pickPictureIntent, RESULT );
+//    }
 
 
 

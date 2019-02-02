@@ -24,7 +24,7 @@
     <string name="gluten">Gluten</string>
     <string name="submit">Submit</string>
 
-
+    <!-- login activity -->
     <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
     <string name="emailpassword_title_text">Email and Password</string>
     <string name="signed_out">Signed Out</string>
@@ -40,10 +40,27 @@
     <string name="auth_failed">Authentication failed</string>
     <string name="users">users</string>
 
+
+    <!-- text detector class-->
     <string name="snap">Snap</string>
     <string name="detect">Detect</string>
     <string name="pick">Pick</string>
 
+
+    <!-- menu activity -->
+    <string name="addItem">Add Item</string>
+    <string name="inventory">Inventory</string>
+    <!---->
+    <!--ADD PRODUCT ACTIVITY-->
+    <string name="product_name">Product Name</string>
+    <string-array name="spinnerFoodItems">
+        <item>Perishable</item>
+        <item>Non-Perishable</item>
+        <item>Fruit</item>
+        <item>Veg</item>
+    </string-array>
+
+    <string name="bestBefore">Best Before Date</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
