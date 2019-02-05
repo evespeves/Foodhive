@@ -6,44 +6,50 @@ import java.util.Date;
 
 /** PRODUCT OBJECT FOR PRODUCT DATA **/
 public class Product {
-
-    String ProdName;
-    int ProdBBDate;
-    String ProdCategory;
+    String prodId;
+    String prodName;
+    String prodBBDate;
+    String prodCategory;
 
  //Constructors
 
-    public Product(String prodName, int prodBBDate, String ProdCategory) {
-        ProdName = prodName;
-        ProdBBDate = prodBBDate;
-        ProdCategory = ProdCategory;
+    public Product(String prodId, String prodName, String prodBBDate, String prodCategory) {
+        this.prodId = prodId;
+       this.prodName = prodName;
+        this.prodBBDate = prodBBDate;
+        this.prodCategory = prodCategory;
 
     }
 
-    //Getters and setters
+    public String getProdId() {
+        return prodId;
+    }
+
+    public void setProdId(String prodId) {
+        this.prodId = prodId;
+    }
+
     public String getProdName() {
-        return ProdName;
+        return prodName;
     }
 
     public void setProdName(String prodName) {
-        ProdName = prodName;
+        this.prodName = prodName;
     }
 
-    public int getProdBBDate() {
-        return ProdBBDate;
+    public String getProdBBDate() {
+        return prodBBDate;
     }
 
-    public void setProdBBDate(int prodBBDate) {
-        ProdBBDate = prodBBDate;
+    public void setProdBBDate(String prodBBDate) {
+        this.prodBBDate = prodBBDate;
     }
 
     public String getProdCategory() {
-        return ProdCategory;
+        return prodCategory;
     }
 
     public void setProdCategory(String prodCategory) {
-        ProdCategory = prodCategory;
+        this.prodCategory = prodCategory;
     }
-
-
 }

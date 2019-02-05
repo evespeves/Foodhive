@@ -26,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
         //WHEN BUTTON CLICKED GOES TO CLASS
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-                Intent i = new Intent(getApplicationContext(), TextDetector.class);
+                Intent i = new Intent(getApplicationContext(), AddFoodItem.class);
                 startActivity(i);
-                setContentView(R.layout.activity_text_detector);
+                setContentView(R.layout.activity_add_food_item);
             }
         });
 

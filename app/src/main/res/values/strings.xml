@@ -51,6 +51,7 @@
     <string name="addItem">Add Item</string>
     <string name="inventory">Inventory</string>
     <!---->
+
     <!--ADD PRODUCT ACTIVITY-->
     <string name="product_name">Product Name</string>
     <string-array name="spinnerFoodItems">
@@ -59,8 +60,8 @@
         <item>Fruit</item>
         <item>Veg</item>
     </string-array>
-
     <string name="bestBefore">Best Before Date</string>
+    <string name="category">Category</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
