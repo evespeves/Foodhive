@@ -1,13 +1,9 @@
 package com.example.evaaherne.fypfoodhive;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.support.annotation.VisibleForTesting;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
-import com.example.evaaherne.fypfoodhive.R;
+import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.AppCompatActivity;
 /** Base activity used for progress bar for the login page */
 
 /**Resources for this gathered from link below,

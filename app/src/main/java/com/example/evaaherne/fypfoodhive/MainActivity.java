@@ -2,8 +2,11 @@ package com.example.evaaherne.fypfoodhive;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 
@@ -41,11 +44,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
 
-
-
-
-
+    /** How to add a menu bar
+     *  https://www.youtube.com/watch?v=62y6Ad2SJEQ&ab_channel=PRABEESHRK**/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.app_bar_menu, menu);
+        return true;
     }
 }
 

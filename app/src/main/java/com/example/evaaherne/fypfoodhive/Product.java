@@ -7,18 +7,35 @@ import java.util.Date;
 /** PRODUCT OBJECT FOR PRODUCT DATA **/
 public class Product {
     String prodId;
+    String userId;
     String prodName;
     String prodBBDate;
     String prodCategory;
+    String expDay;
+
 
  //Constructors
+    public Product(){
 
-    public Product(String prodId, String prodName, String prodBBDate, String prodCategory) {
+    }
+
+
+    public Product(String prodId, String prodName, String prodBBDate, String prodCategory, String expDay) {
+     //   this.userId = userId;
         this.prodId = prodId;
        this.prodName = prodName;
         this.prodBBDate = prodBBDate;
         this.prodCategory = prodCategory;
+        this.expDay = expDay;
 
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getProdId() {
@@ -51,5 +68,13 @@ public class Product {
 
     public void setProdCategory(String prodCategory) {
         this.prodCategory = prodCategory;
+    }
+
+    public String getExpDay() {
+        return expDay;
+    }
+
+    public void setExpDay(String expDay) {
+        this.expDay = expDay;
     }
 }

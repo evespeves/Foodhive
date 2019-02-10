@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="287dp"
-        android:layout_height="177dp"
+        android:layout_height="128dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
@@ -24,19 +24,9 @@
             android:layout_height="wrap_content"
             android:text="@string/product_name"
             android:textColor="@color/colorAccent"
-            android:textSize="30sp"
+            android:textSize="24sp"
             tools:layout_editor_absoluteX="90dp"
             tools:layout_editor_absoluteY="81dp" />
-
-        <TextView
-            android:id="@+id/textBestBefore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bestBefore"
-            android:textColor="@color/colorAccent"
-            android:textSize="30sp"
-            tools:layout_editor_absoluteX="60dp"
-            tools:layout_editor_absoluteY="164dp" />
 
         <TextView
             android:id="@+id/textCategory"
@@ -44,15 +34,32 @@
             android:layout_height="wrap_content"
             android:text="@string/category"
             android:textColor="@color/colorAccent"
-            android:textSize="30sp"
+            android:textSize="24sp"
             tools:layout_editor_absoluteX="118dp"
             tools:layout_editor_absoluteY="122dp" />
+
+        <TextView
+            android:id="@+id/textBestBefore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bestBefore"
+            android:textColor="@color/colorAccent"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="60dp"
+            tools:layout_editor_absoluteY="164dp" />
+
+        <TextView
+            android:id="@+id/textExpDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Days" />
+
     </LinearLayout>
 
-    <android.support.constraint.Guideline
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp" />
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

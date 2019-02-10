@@ -1,100 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddFoodItem">
 
-    <EditText
-        android:id="@+id/product_name"
-        android:layout_width="288dp"
-        android:layout_height="53dp"
+    <LinearLayout
+        android:id="@+id/expiryCalculation"
+        android:layout_width="41dp"
+        android:layout_height="113dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="28dp"
-        android:ems="10"
-        android:hint="@string/product_name"
-        android:inputType="textPersonName"
-        android:singleLine="false"
-        app:layout_constraintBottom_toTopOf="@+id/spinCategory"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/expiryLabels"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:focusable="auto" />
+        app:layout_constraintTop_toBottomOf="@+id/itemDetails">
 
-    <Spinner
-        android:id="@+id/spinCategory"
-        android:layout_width="286dp"
-        android:layout_height="57dp"
+        <TextView
+            android:id="@+id/txtExpiryDay"
+            android:layout_width="wrap_content"
+            android:layout_height="39dp"
+            android:text="d"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="199dp"
+            tools:layout_editor_absoluteY="440dp" />
+
+        <TextView
+            android:id="@+id/txtExpiryMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="39dp"
+            android:text="months"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="169dp"
+            tools:layout_editor_absoluteY="499dp" />
+
+        <TextView
+            android:id="@+id/txtExpiryYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="year"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="188dp"
+            tools:layout_editor_absoluteY="549dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/itemDetails"
+        android:layout_width="331dp"
+        android:layout_height="205dp"
+        android:layout_marginTop="36dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAddNewItem">
+
+        <EditText
+            android:id="@+id/product_name"
+            android:layout_width="288dp"
+            android:layout_height="53dp"
+            android:ems="10"
+            android:hint="@string/product_name"
+            android:inputType="textPersonName"
+            android:singleLine="false"
+            tools:focusable="auto"
+            tools:layout_editor_absoluteX="62dp"
+            tools:layout_editor_absoluteY="70dp" />
+
+        <Spinner
+            android:id="@+id/spinCategory"
+            android:layout_width="286dp"
+            android:layout_height="57dp"
+            android:entries="@array/spinnerFoodItems"
+            android:nextFocusDown="@id/bestBEntry"
+            android:spinnerMode="dropdown"
+            tools:layout_editor_absoluteX="63dp"
+            tools:layout_editor_absoluteY="120dp" />
+
+        <EditText
+            android:id="@+id/bestBEntry"
+            android:layout_width="275dp"
+            android:layout_height="53dp"
+            android:clickable="false"
+            android:editable="false"
+            android:ems="10"
+            android:hint="@string/bestBefore"
+            android:phoneNumber="false"
+            tools:clickable="false"
+            tools:layout_editor_absoluteX="74dp"
+            tools:layout_editor_absoluteY="212dp" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btnAdd"
+        android:layout_width="92dp"
+        android:layout_height="70dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="43dp"
-        android:entries="@array/spinnerFoodItems"
-        android:nextFocusDown="@id/bestBEntry"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toTopOf="@+id/bestBEntry"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/product_name" />
-
-    <EditText
-        android:id="@+id/bestBEntry"
-        android:layout_width="275dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="@string/bestBefore"
-        android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/btnAdd"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinCategory"
-        tools:clickable="@tools:sample/date/ddmmyy"
-        tools:digits="@tools:sample/date/ddmmyy" />
-
-    <ImageButton
-        android:id="@+id/btnAdd"
-        android:layout_width="69dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="262dp"
-        android:layout_marginLeft="262dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginBottom="248dp"
+        android:layout_marginBottom="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.815"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bestBEntry"
+        app:layout_constraintTop_toBottomOf="@+id/expiryCalculation"
         app:srcCompat="@android:drawable/ic_input_add" />
 
     <Button
         android:id="@+id/btnInventory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="122dp"
-        android:layout_marginLeft="122dp"
-        android:layout_marginTop="174dp"
-        android:layout_marginEnd="188dp"
-        android:layout_marginRight="188dp"
-        android:layout_marginBottom="126dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/inventory"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/itemDetails"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bestBEntry" />
+        app:layout_constraintStart_toEndOf="@+id/txtAddNewItem"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/txtAddNewItem"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginLeft="124dp"
+        android:layout_marginTop="52dp"
+        android:text="@string/addItem"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/expiryLabels"
+        android:layout_width="92dp"
+        android:layout_height="113dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/btnAdd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemDetails"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/txtViewExpiryD"
+            android:layout_width="wrap_content"
+            android:layout_height="39dp"
+            android:text="@string/DaysUntilExpiry"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="284dp"
+            tools:layout_editor_absoluteY="440dp" />
+
+        <TextView
+            android:id="@+id/txtViewExpiryM"
+            android:layout_width="wrap_content"
+            android:layout_height="39dp"
+            android:text="@string/MonthsUntilExpiry"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="273dp"
+            tools:layout_editor_absoluteY="499dp" />
+
+        <TextView
+            android:id="@+id/txtViewExpiryY"
+            android:layout_width="wrap_content"
+            android:layout_height="39dp"
+            android:text="@string/YearsUntilExpiry"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="273dp"
+            tools:layout_editor_absoluteY="549dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

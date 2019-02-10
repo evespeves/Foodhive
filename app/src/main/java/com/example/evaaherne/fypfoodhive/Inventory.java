@@ -1,7 +1,12 @@
 package com.example.evaaherne.fypfoodhive;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +28,12 @@ public class Inventory extends AppCompatActivity {
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private DatabaseReference myRef = db.getReference("Inventory");
 
+    private NotificationManagerCompat notificationManager;
+
+
+    private final String CHANNEL_ID = "personal_notifications";
+    private final int NOTIFICATION_ID = 001;
+
     ListView listViewProduct;
     List<Product> productList;
 
@@ -36,6 +47,20 @@ public class Inventory extends AppCompatActivity {
         //ARRAY LIST
         productList =  new ArrayList<>();
 
+        notificationManager = NotificationManagerCompat.from(this);
+    }
+
+    public void displayNotifcation(View view)
+    {
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_ID);
+        builder.setSmallIcon(R.mipmap.inventory);
+        builder.setContentTitle("Food about to expire!!");
+        builder.setContentText("Food item will expire soon, check inventory to see what");
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+        notificationManagerCompat.notify(NOTIFICATION_ID, builder.build());
     }
 
     @Override

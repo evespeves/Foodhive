@@ -2,8 +2,8 @@ package com.example.evaaherne.fypfoodhive;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +16,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.example.evaaherne.fypfoodhive.R;
 
 /**
  * Copyright 2016 Google Inc. All Rights Reserved.
