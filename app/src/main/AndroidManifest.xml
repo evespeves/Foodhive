@@ -13,12 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".recipeSuggestion" />
-        <activity android:name=".ProductList" />
-        <activity android:name=".Inventory" />
-        <activity android:name=".MenuActivity" />
-        <activity android:name=".AddFoodItem" />
-        <activity android:name=".TextDetector" />
+        <!--<activity android:name=".ProductList" />-->
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,8 +24,6 @@
         <activity android:name=".login" />
         <activity android:name=".User_detail" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".TextRecognitionActivity" />
-        <activity android:name=".PhotoCaptureActivity" />
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
