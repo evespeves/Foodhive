@@ -2,9 +2,10 @@ package com.example.evaaherne.fypfoodhive;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
-import android.content.Intent;
+
+import android.app.Notification;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -18,6 +19,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.evaaherne.fypfoodhive.app.CHANNEL_ID;
+
 /**
  * Some code gathered from link below to retrieve data from firebase
  * https://www.youtube.com/watch?v=jEmq1B1gveM&t=74s&ab_channel=SimplifiedCoding
@@ -27,15 +30,10 @@ public class Inventory extends AppCompatActivity {
     //GET DB INSTANCE AND REFERENCE DB
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private DatabaseReference myRef = db.getReference("Inventory");
-
-    private NotificationManagerCompat notificationManager;
-
-
-    private final String CHANNEL_ID = "personal_notifications";
-    private final int NOTIFICATION_ID = 001;
-
     ListView listViewProduct;
     List<Product> productList;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,21 +45,18 @@ public class Inventory extends AppCompatActivity {
         //ARRAY LIST
         productList =  new ArrayList<>();
 
-        notificationManager = NotificationManagerCompat.from(this);
+
     }
 
-    public void displayNotifcation(View view)
-    {
+//    public void showNotification(View v){
+//        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+//                .setSmallIcon(R.mipmap.inventory)
+//                .setContentTitle("Expiry Alert")
+//                .setContentText("A product is about to expire!")
+//                .build();
+//
+//    }
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_ID);
-        builder.setSmallIcon(R.mipmap.inventory);
-        builder.setContentTitle("Food about to expire!!");
-        builder.setContentText("Food item will expire soon, check inventory to see what");
-        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
-        notificationManagerCompat.notify(NOTIFICATION_ID, builder.build());
-    }
 
     @Override
     protected void onStart() {

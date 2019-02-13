@@ -1,6 +1,9 @@
 package com.example.evaaherne.fypfoodhive;
 
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -23,6 +26,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import static com.example.evaaherne.fypfoodhive.app.CHANNEL_ID;
+
 public class AddFoodItem extends BaseActivity {
     ImageButton btnAdd;
     Button btnInventory;
@@ -34,6 +42,7 @@ public class AddFoodItem extends BaseActivity {
     Spinner spinCategory;
 
     DatabaseReference databaseProducts;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +63,18 @@ public class AddFoodItem extends BaseActivity {
         txtExpiryMonth = findViewById(R.id.txtExpiryMonth);
         txtExpiryYear = findViewById(R.id.txtExpiryYear);
 
+
+
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addProduct();
                 product_name.getText().clear();
                 bestBEntry.getText().clear();
+
+
+
 
             }
         });
@@ -104,10 +119,12 @@ public class AddFoodItem extends BaseActivity {
             String todayDate = new SimpleDateFormat("dd/MMM/YYYY", Locale.getDefault()).format(new Date());
               String countDays = getCountOfDays(todayDate, format);
               txtExpiryDay.setText(countDays);
-
-
         }
     };
+
+
+
+
 
     /** https://stackoverflow.com/questions/42553017/android-calculate-days-between-two-dates **/
 

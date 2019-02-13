@@ -1,6 +1,7 @@
 package com.example.evaaherne.fypfoodhive;
 
 import android.app.Activity;
+import android.app.Notification;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +23,14 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.example.evaaherne.fypfoodhive.app.CHANNEL_ID;
+
+
+
 /** Some code gathered from for this class to retrieve data from
  * https://www.youtube.com/watch?v=jEmq1B1gveM&t=74s&ab_channel=SimplifiedCoding
  */
+
 
 public class ProductList extends ArrayAdapter<Product> {
 
@@ -68,8 +74,8 @@ public class ProductList extends ArrayAdapter<Product> {
         String expireDate = product.getProdBBDate();
         String todayDate = new SimpleDateFormat("dd/MMM/YYYY", Locale.getDefault()).format(new Date());
         String expDay = getCountOfDays(todayDate, expireDate);
-        int numExpDay = Integer.parseInt(expDay);
-        textExpDate.setText(numExpDay);
+
+        textExpDate.setText(expDay);
 
 
         return recycleViewItem;
