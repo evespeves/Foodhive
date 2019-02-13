@@ -127,9 +127,9 @@ public class login extends BaseActivity implements
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-                            Intent i = new Intent(getApplicationContext(), TextDetector.class);
+                            Intent i = new Intent(getApplicationContext(), MenuActivity.class);
                             startActivity(i);
-                            setContentView(R.layout.activity_text_detector);
+                            setContentView(R.layout.activity_menu);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
