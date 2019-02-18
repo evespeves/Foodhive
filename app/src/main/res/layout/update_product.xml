@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:id="@+id/product_name"
+        android:layout_width="288dp"
+        android:layout_height="53dp"
+        android:ems="10"
+        android:hint="@string/product_name"
+        android:inputType="textPersonName"
+        android:singleLine="false"
+        tools:focusable="auto"
+        tools:layout_editor_absoluteX="62dp"
+        tools:layout_editor_absoluteY="70dp" />
+
+    <Spinner
+        android:id="@+id/prod_cat"
+        android:layout_width="288dp"
+        android:layout_height="53dp"
+        android:layout_below="@id/editTextName"
+        android:entries="@array/spinnerFoodItems">
+    </Spinner>
+    <EditText
+        android:id="@+id/bestBEntry"
+        android:layout_width="275dp"
+        android:layout_height="53dp"
+        android:clickable="false"
+        android:editable="false"
+        android:ems="10"
+        android:hint="@string/bestBefore"
+        android:phoneNumber="false"
+        tools:clickable="false"
+        tools:layout_editor_absoluteX="74dp"
+        tools:layout_editor_absoluteY="212dp" />
+    <EditText
+        android:id="@+id/prod_exp_days"
+        android:layout_width="275dp"
+        android:layout_height="53dp"
+        android:clickable="false"
+        android:ems="10"
+        android:hint="@string/DaysUntilExpiry"
+        tools:clickable="false"
+        tools:layout_editor_absoluteX="74dp"
+        tools:layout_editor_absoluteY="212dp" />
+
+    <LinearLayout
+        android:id="@+id/actionButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonUpdateProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Update" />
+
+        <Button
+            android:id="@+id/buttonDeleteProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Delete" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

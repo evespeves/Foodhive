@@ -11,7 +11,7 @@ public class Product {
     String prodName;
     String prodBBDate;
     String prodCategory;
-    String expDay;
+    int expDay;
 
 
  //Constructors
@@ -20,7 +20,7 @@ public class Product {
     }
 
 
-    public Product(String prodId, String prodName, String prodBBDate, String prodCategory, String expDay) {
+    public Product(String prodId, String prodName, String prodBBDate, String prodCategory, int expDay) {
      //   this.userId = userId;
         this.prodId = prodId;
        this.prodName = prodName;
@@ -70,11 +70,11 @@ public class Product {
         this.prodCategory = prodCategory;
     }
 
-    public String getExpDay() {
+    public int getExpDay() {
         return expDay;
     }
 
-    public void setExpDay(String expDay) {
+    public void setExpDay(int expDay) {
         this.expDay = expDay;
     }
 }

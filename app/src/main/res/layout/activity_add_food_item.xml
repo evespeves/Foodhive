@@ -22,31 +22,11 @@
         app:layout_constraintTop_toBottomOf="@+id/itemDetails">
 
         <TextView
-            android:id="@+id/txtExpiryDay"
-            android:layout_width="wrap_content"
-            android:layout_height="39dp"
-            android:text="d"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="199dp"
-            tools:layout_editor_absoluteY="440dp" />
-
-        <TextView
-            android:id="@+id/txtExpiryMonth"
-            android:layout_width="wrap_content"
-            android:layout_height="39dp"
-            android:text="months"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="169dp"
-            tools:layout_editor_absoluteY="499dp" />
-
-        <TextView
-            android:id="@+id/txtExpiryYear"
-            android:layout_width="wrap_content"
+            android:id="@+id/expDays"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="year"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="188dp"
-            tools:layout_editor_absoluteY="549dp" />
+            android:text="d"
+            android:textSize="24sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -166,23 +146,6 @@
             tools:layout_editor_absoluteX="284dp"
             tools:layout_editor_absoluteY="440dp" />
 
-        <TextView
-            android:id="@+id/txtViewExpiryM"
-            android:layout_width="wrap_content"
-            android:layout_height="39dp"
-            android:text="@string/MonthsUntilExpiry"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="273dp"
-            tools:layout_editor_absoluteY="499dp" />
-
-        <TextView
-            android:id="@+id/txtViewExpiryY"
-            android:layout_width="wrap_content"
-            android:layout_height="39dp"
-            android:text="@string/YearsUntilExpiry"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="273dp"
-            tools:layout_editor_absoluteY="549dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

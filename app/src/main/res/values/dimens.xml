@@ -3,6 +3,17 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="spacer_16">16dp</dimen>
+    <dimen name="spacer_10">10dp</dimen>
+    <dimen name="spacer_20">20dp</dimen>
+    <dimen name="spacer_30">30dp</dimen>
+    <dimen name="spacer_40">40dp</dimen>
+    <dimen name="spacer_5">5dp</dimen>
+    <dimen name="spacer_4">4dp</dimen>
+    <dimen name="spacer_3">3dp</dimen>
+    <dimen name="spacer_0">0dp</dimen>
+
+
     <dimen name="icon_top_margin">24dp</dimen>
     <dimen name="icon_bottom_margin">24dp</dimen>
     <dimen name="title_bottom_margin">16dp</dimen>

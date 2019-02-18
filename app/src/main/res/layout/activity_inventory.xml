@@ -7,6 +7,7 @@
     tools:context=".Inventory">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="412dp"
         android:layout_height="723dp"
         app:layout_constraintEnd_toEndOf="parent"

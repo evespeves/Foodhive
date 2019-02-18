@@ -6,10 +6,17 @@
     >
 <!-- https://www.youtube.com/watch?v=62y6Ad2SJEQ&ab_channel=PRABEESHRK-->
     <item
+        android:id="@+id/app_bar_search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="Search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/action_home"
-        android:title="Menu"
         android:icon="@mipmap/menu"
-        app:showAsAction="collapseActionView"/>
+        android:menuCategory="container"
+        android:title="Menu"
+        app:showAsAction="always|collapseActionView" />
 
     <item
         android:id="@+id/action_inventory"

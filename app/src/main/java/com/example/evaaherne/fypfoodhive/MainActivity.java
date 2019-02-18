@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
         //WHEN BUTTON CLICKED GOES TO CLASS
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-                Intent i = new Intent(getApplicationContext(), login.class);
+                Intent i = new Intent(getApplicationContext(), ProductListings.class);
                 startActivity(i);
-                setContentView(R.layout.activity_login);
+                setContentView(R.layout.activity_product_listings);
             }
         });
 

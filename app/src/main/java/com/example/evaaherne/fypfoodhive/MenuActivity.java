@@ -41,7 +41,7 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         //WHEN BUTTON CLICKED GOES TO CLASS
-        btnInventory.setOnClickListener(new View.OnClickListener() {
+        btnOcr.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 Intent i = new Intent(getApplicationContext(),  PhotoCaptureActivity.class);
                 startActivity(i);
