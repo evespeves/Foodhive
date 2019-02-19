@@ -1,17 +1,14 @@
-package com.example.evaaherne.fypfoodhive;
+package com.example.evaaherne.fypfoodhive.Models;
 
-
-import java.util.Calendar;
-import java.util.Date;
 
 /** PRODUCT OBJECT FOR PRODUCT DATA **/
 public class Product {
-    String prodId;
+    public String prodId;
     String userId;
-    String prodName;
-    String prodBBDate;
-    String prodCategory;
-    int expDay;
+    public String prodName;
+    public String prodBBDate;
+    public String prodCategory;
+    public int expDay;
 
 
  //Constructors

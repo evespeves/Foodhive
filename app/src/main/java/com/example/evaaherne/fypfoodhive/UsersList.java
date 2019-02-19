@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.evaaherne.fypfoodhive.Models.Users;
+
 import java.util.List;
 
 /** Some code gathered from for this class to retrieve data from
@@ -47,9 +49,7 @@ public class UsersList extends ArrayAdapter<Users> {
         Users users = userList.get(position);
         //gets values for the data
         textViewName.setText(users.getUserName());
-        textViewNut.setText(users.getUserNutValue());
-        textViewDairy.setText(users.getUserDairyValue());
-        textViewGluten.setText(users.getUserGlutenValue());
+
 
         return listViewItem;
 

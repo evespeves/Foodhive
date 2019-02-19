@@ -35,6 +35,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".TextRecognitionActivity" />
         <activity android:name=".PhotoCaptureActivity" />
+        <activity android:name=".UpdateProduct" />
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"

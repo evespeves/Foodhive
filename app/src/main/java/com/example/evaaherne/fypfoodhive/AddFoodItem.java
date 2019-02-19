@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -13,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.evaaherne.fypfoodhive.Models.Product;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -57,23 +57,18 @@ public class AddFoodItem extends BaseActivity {
         btnInventory = findViewById(R.id.btnInventory);
 
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addProduct();
-
-                product_name.getText().clear();
-                bestBEntry.getText().clear();
+        btnAdd.setOnClickListener(v -> {
+            if (!validateForm()) {
+                return;
             }
+
+            addProduct();
         });
 
-        btnInventory.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ProductListings.class);
-                startActivity(i);
-                setContentView(R.layout.activity_product_listings);
-            }
+        btnInventory.setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(), ProductListings.class);
+            startActivity(i);
+            setContentView(R.layout.activity_product_listings);
         });
 
         //onClick of bestBEntry
@@ -91,6 +86,28 @@ public class AddFoodItem extends BaseActivity {
 
 
 
+    private boolean validateForm() {
+        boolean valid = true;
+
+        //Sets errors if fields are not filled in correctly
+        String name = product_name.getText().toString();
+        if (TextUtils.isEmpty(name)) {
+            product_name.setError("Required.");
+            valid = false;
+        } else {
+            product_name.setError(null);
+        }
+
+        String date = bestBEntry.getText().toString();
+        if (TextUtils.isEmpty(date)) {
+            bestBEntry.setError("Required.");
+            valid = false;
+        } else {
+            bestBEntry.setError(null);
+        }
+
+        return valid;
+    }
     public void expiryAlert(int expiryDays){
         if (expiryDays == 5 || expiryDays == 4 || expiryDays == 3 || expiryDays == 2 || expiryDays == 1 ) {
             showNotification(expiryDays);
@@ -239,6 +256,7 @@ public class AddFoodItem extends BaseActivity {
 
     private void addProduct() {
         //String userId;
+
         String ProdName = product_name.getText().toString().trim();
         String spinCat = spinCategory.getSelectedItem().toString();
         String bestBefore = bestBEntry.getText().toString().trim();
@@ -269,4 +287,6 @@ public class AddFoodItem extends BaseActivity {
             Toast.makeText(this, "Missing details! Please fill in all fields.", Toast.LENGTH_LONG).show();
         }
     }
+
+
 }

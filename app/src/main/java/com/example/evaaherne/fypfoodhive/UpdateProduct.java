@@ -1,10 +1,28 @@
 package com.example.evaaherne.fypfoodhive;
 
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.evaaherne.fypfoodhive.Models.Product;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,43 +33,86 @@ public class UpdateProduct extends AppCompatActivity  {
     private String BBDate;
     private String ExpDays;
 
+
+    EditText prod_exp_day;
+    EditText product_name;
+    EditText bestBEntry;
+    Spinner prodCat;
+    Button buttonUpdate;
+    Button buttonDelete;
 @Override
     protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.update_product);
+     Intent intent = getIntent();
 
-    ProdId = getIntent().getStringExtra("ProdId");
-    Name = getIntent().getStringExtra("Name");
-    Category = getIntent().getStringExtra("Category");
-    BBDate = getIntent().getStringExtra("BBDate");
-    ExpDays = getIntent().getStringExtra("ExpDays");
+    //View declaration
+     product_name = findViewById(R.id.product_name);
+     prodCat = findViewById(R.id.prod_cat);
+     bestBEntry = findViewById(R.id.bestBEntry);
+     prod_exp_day = findViewById(R.id.prod_exp_days);
 
-    EditText product_name = findViewById(R.id.product_name);
-    Spinner prodCat = findViewById(R.id.prod_cat);
-    EditText bestBEntry = findViewById(R.id.bestBEntry);
-    EditText prod_exp_days = findViewById(R.id.prod_exp_days);
+    /**
+     * Bring data from one item to another
+     * https://stackoverflow.com/questions/4233873/how-do-i-get-extra-data-from-intent-on-android
+     */
+    ProdId = intent.getStringExtra("ProdId");
+    Name = intent.getStringExtra("Name");
+    Category = intent.getStringExtra("Category");
+    BBDate = intent.getStringExtra("Date");
+    ExpDays = intent.getStringExtra("ExpDays");
+
+    product_name.setText(Name);
     prodCat.setSelection(getIndexSpinnerItem(prodCat, Category ));
+    bestBEntry.setText(BBDate);
+    prod_exp_day.setText(ExpDays);
 
-    final Button buttonUpdate = findViewById(R.id.buttonUpdateProduct);
-    final Button buttonDelete = findViewById(R.id.buttonDeleteProduct);
 
-    buttonUpdate.setOnClickListener(new View.OnClickListener(){
-    @Override
-        public void onClick(View view){
-        Product product = new Product();
-        product.setProdName(product_name.getText().toString());
-        product.setProdCategory(prodCat.getSelectedItem().toString());
-        product.setProdBBDate(bestBEntry.getText().toString());
-        String stringDays = String.valueOf(prod_exp_days);
-        int parsefinalDays = Integer.parseInt(stringDays);
-        product.setExpDay(parsefinalDays);
+    buttonUpdate = findViewById(R.id.buttonUpdateProduct);
+    buttonDelete = findViewById(R.id.buttonDeleteProduct);
 
-    }
 
+    /** Calender date picker
+     * https://www.youtube.com/watch?v=TTFfQgikQiU&ab_channel=DebomaDevelopmentStudio**/
+    bestBEntry.setOnClickListener(v -> {
+        final Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog dateDialog = new DatePickerDialog(v.getContext(), datePickerListener, mYear, mMonth, mDay);
+        dateDialog.getDatePicker().setMinDate(new Date().getTime());
+        dateDialog.show();
 
     });
+
+
+    buttonUpdate.setOnClickListener(view -> {
+        String days = String.valueOf(prod_exp_day.getText());
+        int finalDays = Integer.parseInt(days);
+                if (!TextUtils.isEmpty(Name) && (!TextUtils.isEmpty(BBDate)) && (!TextUtils.isEmpty(ExpDays)) ) {
+                    updateProduct(ProdId, Name, BBDate, Category, finalDays);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Product Update Failed. Please enter in all criteria.", Toast.LENGTH_LONG).show();
+                }
+    });
+
+    buttonDelete.setOnClickListener(view -> {
+        String days = String.valueOf(prod_exp_day.getText());
+        if (!TextUtils.isEmpty(Name) && (!TextUtils.isEmpty(BBDate)) && (!TextUtils.isEmpty(ExpDays)) ) {
+            deleteProduct(ProdId, Name);
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Delete failed, please fill in all details.", Toast.LENGTH_LONG).show();
+        }
+    });
+
+
     }
 
+    /** Get the index of the spinner and return the value.
+     * https://stackoverflow.com/questions/2390102/how-to-set-selected-item-of-spinner-by-value-not-by-position
+     */
     private int getIndexSpinnerItem(Spinner spinner, String item){
     int index = 0;
     for(int i = 0; i<spinner.getCount(); i++){
@@ -63,6 +124,116 @@ public class UpdateProduct extends AppCompatActivity  {
     return index;
     }
 
+    /** Calender date picker
+     * https://www.youtube.com/watch?v=TTFfQgikQiU&ab_channel=DebomaDevelopmentStudio**/
+    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.YEAR, year);
+            c.set(Calendar.MONTH, month);
+            c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            String format = new SimpleDateFormat("dd/MMM/YYYY").format(c.getTime());
+            bestBEntry.setText(format);
+
+            String todayDate = new SimpleDateFormat("dd/MMM/YYYY", Locale.getDefault()).format(new Date());
+            String countDays = getCountOfDays(todayDate, format);
+            prod_exp_day.setText(countDays);
+        }
+    };
 
 
+    /** Calculation of days in total until expiry
+     * https://stackoverflow.com/questions/42553017/android-calculate-days-between-two-dates **/
+
+    public String getCountOfDays(String createdDateString, String expireDateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy", Locale.getDefault());
+
+        Date createdConvertedDate = null, expireCovertedDate = null, todayWithZeroTime = null;
+        try {
+            createdConvertedDate = dateFormat.parse(createdDateString);
+            expireCovertedDate = dateFormat.parse(expireDateString);
+
+            Date today = new Date();
+
+            todayWithZeroTime = dateFormat.parse(dateFormat.format(today));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        int cYear = 0, cMonth = 0, cDay = 0;
+
+        if (createdConvertedDate.after(todayWithZeroTime)) {
+            Calendar cCal = Calendar.getInstance();
+            cCal.setTime(createdConvertedDate);
+            cYear = cCal.get(Calendar.YEAR);
+            cMonth = cCal.get(Calendar.MONTH);
+            cDay = cCal.get(Calendar.DAY_OF_MONTH);
+
+        } else {
+            Calendar cCal = Calendar.getInstance();
+            cCal.setTime(todayWithZeroTime);
+            cYear = cCal.get(Calendar.YEAR);
+            cMonth = cCal.get(Calendar.MONTH);
+            cDay = cCal.get(Calendar.DAY_OF_MONTH);
+        }
+
+
+    /*Calendar todayCal = Calendar.getInstance();
+    int todayYear = todayCal.get(Calendar.YEAR);
+    int today = todayCal.get(Calendar.MONTH);
+    int todayDay = todayCal.get(Calendar.DAY_OF_MONTH);
+    */
+
+        Calendar eCal = Calendar.getInstance();
+        eCal.setTime(expireCovertedDate);
+
+        int eYear = eCal.get(Calendar.YEAR);
+        int eMonth = eCal.get(Calendar.MONTH);
+        int eDay = eCal.get(Calendar.DAY_OF_MONTH);
+
+        Calendar date1 = Calendar.getInstance();
+        Calendar date2 = Calendar.getInstance();
+
+        date1.clear();
+        date1.set(cYear, cMonth, cDay);
+        date2.clear();
+        date2.set(eYear, eMonth, eDay);
+
+        long diff = date2.getTimeInMillis() - date1.getTimeInMillis();
+
+        float dayCount = (float) diff / (24 * 60 * 60 * 1000);
+
+        return ((int) dayCount + "");
+    }
+
+
+    /** Updating and deleting items
+     * https://www.simplifiedcoding.net/firebase-realtime-database-crud/
+     */
+    private boolean updateProduct(String id, String name, String category, String bbdate, int days) {
+        //getting the specified artist reference
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Inventory").child(id);
+
+        //updating product
+        Product product = new Product(id, name, bbdate, category, days);
+        dR.setValue(product);
+        Toast.makeText(getApplicationContext(), "Product Updated", Toast.LENGTH_LONG).show();
+        Log.d("PRODUCT", "updated product: " + name);
+        return true;
+    }
+
+    private boolean deleteProduct(String id, String name) {
+        //getting the specified product reference
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Inventory").child(id);
+        //removing product
+        dR.removeValue();
+
+        Toast.makeText(getApplicationContext(), "Product Deleted", Toast.LENGTH_LONG).show();
+        Log.d("PRODUCT", "Deleted product: " + name);
+        product_name.getText().clear();
+        bestBEntry.getText().clear();
+        prod_exp_day.getText().clear();
+        return true;
+    }
 }

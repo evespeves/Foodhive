@@ -9,12 +9,12 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 
+import com.example.evaaherne.fypfoodhive.Models.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -33,13 +33,7 @@ public class RegisterActivity extends BaseActivity  {
     EditText editTextName;
     EditText editTextEmail;
     EditText editTextPassword;
-    CheckBox checkBoxNuts;
-    CheckBox checkBoxDairy;
-    CheckBox checkBoxGluten;
     Button buttonCreateA;
-    String nuts;
-    String dairy;
-    String gluten;
     ListView listViewUsers;
     DatabaseReference databaseUsers;
 
@@ -64,10 +58,6 @@ public class RegisterActivity extends BaseActivity  {
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
 
-        //CHECKBOXES
-        checkBoxNuts = findViewById(R.id.checkBoxNuts);
-        checkBoxDairy = findViewById(R.id.checkBoxDairy);
-        checkBoxGluten = findViewById(R.id.checkBoxGluten);
 
         //BUTTON
          buttonCreateA = findViewById(R.id.buttonCreateA);
@@ -82,26 +72,6 @@ public class RegisterActivity extends BaseActivity  {
           //APPLIES VALUES TO THE DB IF CHECKED/NOT CHECKED
             @Override
             public void onClick(View view) {
-                //Checks nuts entry
-                if (checkBoxNuts.isChecked()) {
-                    nuts = "true";
-                } else {
-                    nuts = "false";
-                }
-
-                //Checks dairy entry
-                if (checkBoxDairy.isChecked()) {
-                    dairy = "true";
-                } else {
-                    dairy = "false";
-                }
-
-                //Checks gluten entry
-                if (checkBoxGluten.isChecked()) {
-                    gluten = "true";
-                } else {
-                    gluten = "false";
-                }
 
                 addUser();
                 createAccount(editTextEmail.getText().toString(), editTextPassword.getText().toString());
@@ -165,7 +135,7 @@ public class RegisterActivity extends BaseActivity  {
 
         //Sets errors if fields are not filled in correctly
         String name = editTextName.getText().toString();
-        if (TextUtils.isEmpty(email)) {
+        if (TextUtils.isEmpty(name)) {
             editTextName.setError("Required.");
             valid = false;
         } else {
@@ -192,15 +162,13 @@ public class RegisterActivity extends BaseActivity  {
     private void addUser () {
         String name = editTextName.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
-        String nutsValue = nuts;
-        String dairyValue = dairy;
-        String glutenValue = gluten;
+
 
         //IF THE VIEW IS NOT EMPTY FOR NAME
         if (!TextUtils.isEmpty(name)) {
 
             String id = databaseUsers.push().getKey(); //Get a unique key for the id
-            Users users = new Users(id, name, email, nutsValue, dairyValue, glutenValue); //OBJ INSTANSTIATION
+            Users users = new Users(id, name, email); //OBJ INSTANSTIATION
 
             //SETS DB VALUES
             databaseUsers.child(id).setValue(users);

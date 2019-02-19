@@ -5,7 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="lightGray">#C8C8C8</color>
     <color name="gray">#1f2e2e</color>
-    <color name="red">#ff0000</color>
+    <color name="expired">#ff0000</color>
 
     <color name="white">#FFFFFF</color>
 </resources>
