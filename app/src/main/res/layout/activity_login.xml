@@ -64,7 +64,6 @@
             android:id="@+id/titleText"
             android:layout_width="match_parent"
             android:layout_height="53dp"
-            android:layout_alignStart="@+id/null"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="32dp"

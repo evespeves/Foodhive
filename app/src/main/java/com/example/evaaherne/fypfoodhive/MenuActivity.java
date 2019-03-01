@@ -23,30 +23,18 @@ public class MenuActivity extends AppCompatActivity {
         Button btnOcr = findViewById(R.id.btnOcr);
 
         //WHEN BUTTON CLICKED GOES TO CLASS
-        btnAddItem.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                Intent i = new Intent(getApplicationContext(), AddFoodItem.class);
-                startActivity(i);
-                setContentView(R.layout.activity_add_food_item);
-            }
+        btnAddItem.setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(), AddFoodItem.class);
+            startActivity(i);
+            setContentView(R.layout.activity_add_food_item);
         });
 
-        //WHEN BUTTON CLICKED GOES TO CLASS
-        btnInventory.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                Intent i = new Intent(getApplicationContext(),  Inventory.class);
-                startActivity(i);
-                setContentView(R.layout.activity_inventory);
-            }
-        });
 
         //WHEN BUTTON CLICKED GOES TO CLASS
-        btnOcr.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                Intent i = new Intent(getApplicationContext(),  PhotoCaptureActivity.class);
-                startActivity(i);
-                setContentView(R.layout.activity_photo_capture);
-            }
+        btnOcr.setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(),  PhotoCaptureActivity.class);
+            startActivity(i);
+            setContentView(R.layout.activity_photo_capture);
         });
     }
 }

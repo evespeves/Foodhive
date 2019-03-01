@@ -5,23 +5,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.evaaherne.fypfoodhive.Models.Product;
-
+import com.example.evaaherne.fypfoodhive.Models.Users;
 
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductHolder> {
+public class UserAdapter extends RecyclerView.Adapter<UserHolder> {
 
-    private  List<Product> products;
+    private  List<Users> users;
     private Context context;
     private int itemResource;
 
-    public ProductAdapter(Context context, int itemResource, List<Product> products) {
+    public UserAdapter(Context context, int itemResource, List<Users> users) {
 
         // 1. Initialize our adapter
-        this.products = products;
+        this.users = users;
         this.context = context;
         this.itemResource = itemResource;
     }
@@ -30,28 +29,28 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductHolder> {
 
     // 2. Override the onCreateViewHolder method
     @Override
-    public ProductHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public UserHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         // 3. Inflate the view and return the new ViewHolder
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(this.itemResource, parent, false);
-        return new ProductHolder(this.context, view);
+        return new UserHolder(this.context, view);
     }
 
     // 4. Override the onBindViewHolder method
     @Override
-    public void onBindViewHolder(ProductHolder holder, int position) {
+    public void onBindViewHolder(UserHolder holder, int position) {
 
         // 5. Use position to access the correct Bakery object
-        Product product = this.products.get(position);
+        Users user = this.users.get(position);
 
         // 6. Bind the bakery object to the holder
-        holder.bindProducts(product);
+        holder.bindUsers(user);
     }
 
     @Override
     public int getItemCount() {
-        return this.products.size();
+        return this.users.size();
     }
 }
 

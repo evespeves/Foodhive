@@ -2,16 +2,22 @@ package com.example.evaaherne.fypfoodhive;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.evaaherne.fypfoodhive.Models.Product;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -27,7 +33,10 @@ import static com.example.evaaherne.fypfoodhive.app.CHANNEL_ID;
  */
 public class ProductHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-  @BindView(R.id.prod_name) TextView productName;
+    private FirebaseDatabase db = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = db.getReference("Inventory");
+
+    @BindView(R.id.prod_name) TextView productName;
     @BindView(R.id.prod_cat) TextView prodCategory;
     @BindView(R.id.prod_bb_date) TextView prodExpDate;
     @BindView(R.id.prod_exp_days) TextView expDays;
@@ -62,16 +71,19 @@ public class ProductHolder extends RecyclerView.ViewHolder implements View.OnCli
          int countDays = Integer.parseInt(expireDays);
         this.expDays.setText(String.valueOf(countDays));
 
+
         //Changes colour of text if item due to expire
         if (countDays <= -1){
             expDays.setTextColor(ContextCompat.getColor(context, R.color.expired));
+         //  String prodName = productName.getText().toString();
+         //   addToExpiredList(prodName);
         }
         if (countDays >= 0){
             expDays.setTextColor(ContextCompat.getColor(context, R.color.gray));
         }
 
         expiryAlert(countDays);
-
+        //updateProducts(countDays);
     }
 
     @Override
@@ -97,7 +109,7 @@ public class ProductHolder extends RecyclerView.ViewHolder implements View.OnCli
             intent.putExtra("ExpDays", expDays);
 
             context.startActivity(intent);
-//
+
         }
 
     }
@@ -124,7 +136,7 @@ public class ProductHolder extends RecyclerView.ViewHolder implements View.OnCli
 
         int cYear = 0, cMonth = 0, cDay = 0;
 
-        if (createdConvertedDate.after(todayWithZeroTime)) {
+        if (Objects.requireNonNull(createdConvertedDate).after(todayWithZeroTime)) {
             Calendar cCal = Calendar.getInstance();
             cCal.setTime(createdConvertedDate);
             cYear = cCal.get(Calendar.YEAR);
@@ -215,4 +227,5 @@ public class ProductHolder extends RecyclerView.ViewHolder implements View.OnCli
             notificationManager.notify(notificationId, mBuilder.build());
         }
     }
+
 }

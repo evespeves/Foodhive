@@ -2,6 +2,8 @@ package com.example.evaaherne.fypfoodhive;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.provider.MediaStore;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +20,7 @@ import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
+import com.google.firebase.ml.vision.text.RecognizedLanguage;
 
 
 import java.util.List;
@@ -41,19 +44,9 @@ public class PhotoCaptureActivity extends AppCompatActivity {
         detectBtn = findViewById(R.id.detectBtn);
         imageView = findViewById(R.id.imageView);
         txtView = findViewById(R.id.txtView);
-        snapBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dispatchTakePictureIntent();
-            }
-        });
+        snapBtn.setOnClickListener(view -> dispatchTakePictureIntent());
 
-        detectBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                detectTxt();
-            }
-        });
+        detectBtn.setOnClickListener(view -> detectTxt());
     }
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -62,6 +55,7 @@ public class PhotoCaptureActivity extends AppCompatActivity {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+
         }
     }
 
@@ -80,7 +74,7 @@ public class PhotoCaptureActivity extends AppCompatActivity {
         detector.processImage(image).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
             @Override
             public void onSuccess(FirebaseVisionText firebaseVisionText) {
-                processTxt(firebaseVisionText);
+                processTextBlock(firebaseVisionText);
             }
         }).addOnFailureListener(new OnFailureListener(){
             @Override
@@ -89,17 +83,29 @@ public class PhotoCaptureActivity extends AppCompatActivity {
         });
     }
 
-    private void processTxt(FirebaseVisionText text){
-        List<FirebaseVisionText.TextBlock> blocks = text.getTextBlocks();
-        if (blocks.size() == 0){
-            Toast.makeText(PhotoCaptureActivity.this, "No text", Toast.LENGTH_LONG).show();
-            return;
+    private void processTextBlock(FirebaseVisionText result) {
+        // [START mlkit_process_text_block]
+        String resultText = result.getText();
+        for (FirebaseVisionText.TextBlock block: result.getTextBlocks()) {
+            String blockText = block.getText();
+            Float blockConfidence = block.getConfidence();
+            List<RecognizedLanguage> blockLanguages = block.getRecognizedLanguages();
+            Point[] blockCornerPoints = block.getCornerPoints();
+            Rect blockFrame = block.getBoundingBox();
+            for (FirebaseVisionText.Line line: block.getLines()) {
+                String lineText = line.getText();
+                Float lineConfidence = line.getConfidence();
+                List<RecognizedLanguage> lineLanguages = line.getRecognizedLanguages();
+                Point[] lineCornerPoints = line.getCornerPoints();
+                Rect lineFrame = line.getBoundingBox();
+                for (FirebaseVisionText.Element element: line.getElements()) {
+                    String elementText = element.getText();
+                    Float elementConfidence = element.getConfidence();
+                    List<RecognizedLanguage> elementLanguages = element.getRecognizedLanguages();
+                    Point[] elementCornerPoints = element.getCornerPoints();
+                    Rect elementFrame = element.getBoundingBox();
+                }
+            }
         }
-        for (FirebaseVisionText.TextBlock block : text.getTextBlocks()){
-            String txt = block.getText();
-            txtView.setTextSize(20);
-            txtView.setText(txt);
-        }
-
-    }
+        // [END mlkit_process_text_block]
 }

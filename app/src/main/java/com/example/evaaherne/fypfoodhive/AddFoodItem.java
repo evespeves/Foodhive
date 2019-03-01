@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.evaaherne.fypfoodhive.Models.Product;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,6 +38,10 @@ public class AddFoodItem extends BaseActivity {
     Spinner spinCategory;
 
     DatabaseReference databaseProducts;
+    private FirebaseAuth mAuth;
+
+
+
 
     int notificationId = 01;
 
@@ -44,8 +50,11 @@ public class AddFoodItem extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food_item);
 
+        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        String useruid = user.getUid();
         //Database reference
-        databaseProducts = FirebaseDatabase.getInstance().getReference("Inventory");
+        databaseProducts = FirebaseDatabase.getInstance().getReference("Inventory").child(useruid);
+        // Check if user is signed in (non-null) and update UI accordingly.
 
         //Views
         btnAdd = findViewById(R.id.btnAdd);
@@ -173,7 +182,7 @@ public class AddFoodItem extends BaseActivity {
             c.set(Calendar.YEAR, year);
             c.set(Calendar.MONTH, month);
             c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            String format = new SimpleDateFormat("dd/MMM/YYYY").format(c.getTime());
+            String format = new SimpleDateFormat("dd/MMM/YYYY", Locale.UK).format(c.getTime());
             bestBEntry.setText(format);
 
             String todayDate = new SimpleDateFormat("dd/MMM/YYYY", Locale.getDefault()).format(new Date());
@@ -205,7 +214,7 @@ public class AddFoodItem extends BaseActivity {
 
         int cYear = 0, cMonth = 0, cDay = 0;
 
-        if (createdConvertedDate.after(todayWithZeroTime)) {
+        if (createdConvertedDate.after(todayWithZeroTime) ) {
             Calendar cCal = Calendar.getInstance();
             cCal.setTime(createdConvertedDate);
             cYear = cCal.get(Calendar.YEAR);
@@ -255,13 +264,15 @@ public class AddFoodItem extends BaseActivity {
      */
 
     private void addProduct() {
-        //String userId;
 
         String ProdName = product_name.getText().toString().trim();
         String spinCat = spinCategory.getSelectedItem().toString();
         String bestBefore = bestBEntry.getText().toString().trim();
         String expireDays = expDays.getText().toString().trim();
+
         int finalDays = Integer.parseInt(expireDays);
+
+
 
 
         //IF THE VIEW IS NOT EMPTY FOR NAME
@@ -289,4 +300,9 @@ public class AddFoodItem extends BaseActivity {
     }
 
 
+    //Updates the data
+    private void updateUI(FirebaseUser user) {
+        hideProgressDialog();
+
+    }
 }

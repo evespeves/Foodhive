@@ -43,14 +43,14 @@ public class RegisterActivity extends BaseActivity  {
 
     // [START declare_auth]
     private FirebaseAuth mAuth;
-    // [END declare_auth]
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         //DATABASE REFERENCE
-        databaseUsers = FirebaseDatabase.getInstance().getReference(getString(R.string.users));
+
 
        //VIEWS
         listViewUsers = findViewById(R.id.listViewUsers);
@@ -64,26 +64,15 @@ public class RegisterActivity extends BaseActivity  {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-        // [END initialize_auth]
+        // Check if user is signed in (non-null) and update UI accordingly.
+  ;
 
 
-        buttonCreateA.setOnClickListener(new View.OnClickListener() {
+        //APPLIES VALUES TO THE DB IF CHECKED/NOT CHECKED
+        buttonCreateA.setOnClickListener(view -> {
+              createAccount(editTextEmail.getText().toString(), editTextPassword.getText().toString());
 
-          //APPLIES VALUES TO THE DB IF CHECKED/NOT CHECKED
-            @Override
-            public void onClick(View view) {
-
-                addUser();
-                createAccount(editTextEmail.getText().toString(), editTextPassword.getText().toString());
-
-                Intent i = new Intent(getApplicationContext(), User_detail.class);
-                startActivity(i);
-                setContentView(R.layout.activity_user_detail);
-
-
-
-            }
-        });
+          });
     }
 
     private void createAccount(String email, String password) {
@@ -97,26 +86,28 @@ public class RegisterActivity extends BaseActivity  {
 
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user); //Updates the ui on what user is signed in
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "createUserWithEmail:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        updateUI(user); //Updates the ui on what user is signed in
+                        if (user != null) {
+                            String uid = user.getUid();
+                            addUser(uid);
                         }
 
-                        // [START_EXCLUDE]
-                        hideProgressDialog();
-                        // [END_EXCLUDE]
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                        Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                        updateUI(null);
                     }
+
+                    // [START_EXCLUDE]
+                    hideProgressDialog();
+                    // [END_EXCLUDE]
                 });
         // [END create_user_with_email]
         }
@@ -159,20 +150,16 @@ public class RegisterActivity extends BaseActivity  {
 
     }
 
-    private void addUser () {
+    private void addUser (String id) {
         String name = editTextName.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
-
-
+        databaseUsers = FirebaseDatabase.getInstance().getReference(getString(R.string.users));
         //IF THE VIEW IS NOT EMPTY FOR NAME
         if (!TextUtils.isEmpty(name)) {
-
-            String id = databaseUsers.push().getKey(); //Get a unique key for the id
             Users users = new Users(id, name, email); //OBJ INSTANSTIATION
 
             //SETS DB VALUES
             databaseUsers.child(id).setValue(users);
-
 
             //Toast is a short message that pops up on screen
             Toast.makeText(this, "User added", Toast.LENGTH_LONG).show();

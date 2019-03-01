@@ -4,7 +4,6 @@ package com.example.evaaherne.fypfoodhive.Models;
 /** PRODUCT OBJECT FOR PRODUCT DATA **/
 public class Product {
     public String prodId;
-    String userId;
     public String prodName;
     public String prodBBDate;
     public String prodCategory;
@@ -18,7 +17,7 @@ public class Product {
 
 
     public Product(String prodId, String prodName, String prodBBDate, String prodCategory, int expDay) {
-     //   this.userId = userId;
+
         this.prodId = prodId;
        this.prodName = prodName;
         this.prodBBDate = prodBBDate;
@@ -27,13 +26,6 @@ public class Product {
 
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public String getProdId() {
         return prodId;

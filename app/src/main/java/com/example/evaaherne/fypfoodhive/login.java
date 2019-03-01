@@ -67,44 +67,12 @@ public class login extends BaseActivity implements
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
+
+
     }
     // [END on_start_check_user]
 
-//    private void createAccount(String email, String password) {
-//        Log.d(TAG, "createAccount:" + email); //Logs to system
-//        if (!validateForm()) {
-//            return;
-//        }
 //
-//        //extends to base activity
-//        showProgressDialog();
-
-//        // [START create_user_with_email]
-//        mAuth.createUserWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d(TAG, "createUserWithEmail:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user); //Updates the ui on what user is signed in
-//                        } else {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-//                            Toast.makeText(login.this, "Authentication failed.",
-//                                    Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
-//                        }
-//
-//                        // [START_EXCLUDE]
-//                        hideProgressDialog();
-//                        // [END_EXCLUDE]
-//                    }
-//                });
-//        // [END create_user_with_email]
-    //}
-
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
         if (!validateForm()) {
@@ -121,9 +89,9 @@ public class login extends BaseActivity implements
                         Log.d(TAG, "signInWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
                         updateUI(user);
-                        Intent i = new Intent(getApplicationContext(), MenuActivity.class);
+                        Intent i = new Intent(getApplicationContext(), UserProfile.class);
                         startActivity(i);
-                        setContentView(R.layout.activity_menu);
+                        setContentView(R.layout.activity_user_listings);
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -150,7 +118,6 @@ public class login extends BaseActivity implements
     private void sendEmailVerification() {
         // Disable button
         findViewById(R.id.verifyEmailButton).setEnabled(false);
-
 
         // [START send_email_verification]
         final FirebaseUser user = mAuth.getCurrentUser();

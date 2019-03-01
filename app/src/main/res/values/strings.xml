@@ -18,10 +18,6 @@
     <string name="edit_email">email</string>
     <string name="password">Password</string>
     <string name="edit_password">password</string>
-    <string name="text_allergens">Please tick a box if you are allergic to any of these:</string>
-    <string name="nuts">Nuts</string>
-    <string name="dairy">Dairy</string>
-    <string name="gluten">Gluten</string>
     <string name="submit">Submit</string>
 
     <!-- login activity -->

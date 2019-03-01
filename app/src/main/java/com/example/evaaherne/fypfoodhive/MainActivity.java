@@ -27,21 +27,17 @@ public class MainActivity extends AppCompatActivity {
         Button buttonRegister = findViewById(R.id.buttonRegister);
 
         //WHEN BUTTON CLICKED GOES TO CLASS
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                Intent i = new Intent(getApplicationContext(), ProductListings.class);
-                startActivity(i);
-                setContentView(R.layout.activity_product_listings);
-            }
+        buttonLogin.setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(), AddFoodItem.class);
+            startActivity(i);
+            setContentView(R.layout.activity_add_food_item);
         });
 
         //WHEN BUTTON CLICKED GOES TO CLASS
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                Intent i = new Intent(getApplicationContext(),  RegisterActivity.class);
-                startActivity(i);
-                setContentView(R.layout.activity_register);
-            }
+        buttonRegister.setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(),  login.class);
+            startActivity(i);
+            setContentView(R.layout.activity_login);
         });
 
     }

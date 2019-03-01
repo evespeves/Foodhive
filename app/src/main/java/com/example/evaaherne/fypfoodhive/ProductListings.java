@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.evaaherne.fypfoodhive.Models.Product;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -12,8 +14,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,14 +29,18 @@ public class ProductListings extends AppCompatActivity {
 
     //    //GET DB INSTANCE AND REFERENCE DB
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = db.getReference("Inventory");
+    FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+    String useruid = user.getUid();
+
+    private DatabaseReference myRef = db.getReference("Inventory").child(useruid);
 
     @BindView(R.id.listings_view)
     RecyclerView listingsView;
     List<Product> products;
     Context context;
 
-    private boolean ascending = true;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,18 +68,20 @@ public class ProductListings extends AppCompatActivity {
         listingsView.setAdapter(adapter);
 
 
+
     }
+
 
 
 
     private void loadProducts() {
 
         //DB REFERENCE ADD EVENT LISTENER
-        products = new ArrayList<>();
 
+        products = new ArrayList<>();
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 products.clear(); //Clears before opening
 
                 for (DataSnapshot prodSnapshot : dataSnapshot.getChildren()) {
@@ -81,7 +92,8 @@ public class ProductListings extends AppCompatActivity {
 
                 }
                 //ADAPTER = MIDDLE PERSON BETWEEN THE DB AND THE VIEWS
-                listingsView.getAdapter().notifyDataSetChanged();
+                sortByDays();
+                Objects.requireNonNull(listingsView.getAdapter()).notifyDataSetChanged();
             }
 
             @Override
@@ -93,12 +105,21 @@ public class ProductListings extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
+    /** Sort data by days
+     * https://www.youtube.com/watch?v=1C83CUjLOu8&ab_channel=MyHexaville
+     */
+    private void sortByDays(){
+        Collections.sort(products, (l1, l2) -> {
+            if (l1.getExpDay() > l2.getExpDay()){
+                return 1;
+            }
+            else if (l1.getExpDay() < l2.getExpDay()){
+                return -1;
+            }
+            else {
+                return 0;
+            }
+        });
+    }
 
 }

@@ -1,51 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/product_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:background="@color/white"
+        android:gravity="center"
         android:orientation="vertical"
+        android:padding="@dimen/spacer_5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/white"
-        android:padding="@dimen/spacer_5">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/prod_name"
-            android:layout_marginTop="@dimen/spacer_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/darkTeal"
             android:gravity="center_vertical"
-            android:textStyle="bold"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/prod_cat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/prod_name"
             android:textSize="30sp" />
 
         <TextView
             android:id="@+id/prod_bb_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/prod_cat"
             android:textSize="30sp" />
 
         <TextView
             android:id="@+id/prod_exp_days"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/prod_bb_date"
             android:layout_marginBottom="@dimen/spacer_10"
             android:textSize="30sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

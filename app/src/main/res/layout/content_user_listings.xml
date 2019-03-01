@@ -2,22 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/spacer_10"
-    android:paddingLeft="@dimen/spacer_16"
-    android:paddingRight="@dimen/spacer_16"
-    android:paddingTop="@dimen/spacer_10"
     android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/spacer_16"
+    android:paddingTop="@dimen/spacer_10"
+    android:paddingRight="@dimen/spacer_16"
+    android:paddingBottom="@dimen/spacer_10"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_product_listings"
-    tools:context=".ProductListings">
+    tools:context=".UserProfile"
+    tools:showIn="@layout/activity_user_listings">
+
+    <ImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:contentDescription="TODO"
+        android:src="@drawable/avatar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listings_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white">
+
     </androidx.recyclerview.widget.RecyclerView>
+
 </LinearLayout>

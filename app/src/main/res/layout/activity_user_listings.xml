@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ProductListings">
+    tools:context=".UserProfile">
 
-    <include layout="@layout/content_product_listings" />
+    <include layout="@layout/content_user_listings" />
 
 </RelativeLayout>

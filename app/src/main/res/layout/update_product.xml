@@ -49,7 +49,7 @@
         tools:layout_editor_absoluteY="212dp" />
 
     <LinearLayout
-        android:id="@+id/actionButtons"
+        android:id="@+id/actionBButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -70,6 +70,11 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btnRecipes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search Recipes" />
 
 
 </LinearLayout>

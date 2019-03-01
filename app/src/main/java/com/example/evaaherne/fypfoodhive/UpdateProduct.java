@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.evaaherne.fypfoodhive.Models.Product;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -33,6 +35,8 @@ public class UpdateProduct extends AppCompatActivity  {
     private String BBDate;
     private String ExpDays;
 
+    private FirebaseAuth mAuth;
+    DatabaseReference databaseProducts;
 
     EditText prod_exp_day;
     EditText product_name;
@@ -40,10 +44,18 @@ public class UpdateProduct extends AppCompatActivity  {
     Spinner prodCat;
     Button buttonUpdate;
     Button buttonDelete;
+    Button btnRecipes;
 @Override
     protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.update_product);
+
+    // Check if user is signed in (non-null) and update UI accordingly.
+    mAuth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = mAuth.getCurrentUser();
+    String userId = currentUser.getUid();
+
+    databaseProducts = FirebaseDatabase.getInstance().getReference("Inventory").child(userId);
      Intent intent = getIntent();
 
     //View declaration
@@ -62,14 +74,17 @@ public class UpdateProduct extends AppCompatActivity  {
     BBDate = intent.getStringExtra("Date");
     ExpDays = intent.getStringExtra("ExpDays");
 
+
     product_name.setText(Name);
     prodCat.setSelection(getIndexSpinnerItem(prodCat, Category ));
     bestBEntry.setText(BBDate);
     prod_exp_day.setText(ExpDays);
 
 
+
     buttonUpdate = findViewById(R.id.buttonUpdateProduct);
     buttonDelete = findViewById(R.id.buttonDeleteProduct);
+    btnRecipes = findViewById(R.id.btnRecipes);
 
 
     /** Calender date picker
@@ -87,10 +102,14 @@ public class UpdateProduct extends AppCompatActivity  {
 
 
     buttonUpdate.setOnClickListener(view -> {
+        //String pId = ProdId.getText().toString();
+        String pName = product_name.getText().toString();
+        String pBBdate = bestBEntry.getText().toString();
+        String pCategory = prodCat.getSelectedItem().toString();
         String days = String.valueOf(prod_exp_day.getText());
         int finalDays = Integer.parseInt(days);
-                if (!TextUtils.isEmpty(Name) && (!TextUtils.isEmpty(BBDate)) && (!TextUtils.isEmpty(ExpDays)) ) {
-                    updateProduct(ProdId, Name, BBDate, Category, finalDays);
+                if (!TextUtils.isEmpty(Name)  ) {
+                    updateProduct(ProdId, pName, pBBdate, pCategory, finalDays);
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Product Update Failed. Please enter in all criteria.", Toast.LENGTH_LONG).show();
@@ -99,7 +118,7 @@ public class UpdateProduct extends AppCompatActivity  {
 
     buttonDelete.setOnClickListener(view -> {
         String days = String.valueOf(prod_exp_day.getText());
-        if (!TextUtils.isEmpty(Name) && (!TextUtils.isEmpty(BBDate)) && (!TextUtils.isEmpty(ExpDays)) ) {
+        if (!TextUtils.isEmpty(Name)) {
             deleteProduct(ProdId, Name);
         }
         else {
@@ -107,6 +126,14 @@ public class UpdateProduct extends AppCompatActivity  {
         }
     });
 
+
+    btnRecipes.setOnClickListener(view -> {
+        String pName = product_name.getText().toString();
+        Intent recipe = new Intent(this, recipeSuggestion.class);
+        recipe.putExtra("ProductName", pName);
+        startActivity(recipe);
+        setContentView(R.layout.activity_recipe_suggestion);
+    });
 
     }
 
@@ -133,7 +160,7 @@ public class UpdateProduct extends AppCompatActivity  {
             c.set(Calendar.YEAR, year);
             c.set(Calendar.MONTH, month);
             c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            String format = new SimpleDateFormat("dd/MMM/YYYY").format(c.getTime());
+            String format = new SimpleDateFormat("dd/MMM/YYYY", Locale.UK ).format(c.getTime());
             bestBEntry.setText(format);
 
             String todayDate = new SimpleDateFormat("dd/MMM/YYYY", Locale.getDefault()).format(new Date());
@@ -211,13 +238,15 @@ public class UpdateProduct extends AppCompatActivity  {
     /** Updating and deleting items
      * https://www.simplifiedcoding.net/firebase-realtime-database-crud/
      */
-    private boolean updateProduct(String id, String name, String category, String bbdate, int days) {
-        //getting the specified artist reference
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Inventory").child(id);
+    private boolean updateProduct(String id, String name, String date, String category, int days) {
+        //getting the specified product reference
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userId = currentUser.getUid();
 
         //updating product
-        Product product = new Product(id, name, bbdate, category, days);
-        dR.setValue(product);
+        Product product = new Product(id, name, date,category, days);
+        databaseProducts.child(id).setValue(product);
         Toast.makeText(getApplicationContext(), "Product Updated", Toast.LENGTH_LONG).show();
         Log.d("PRODUCT", "updated product: " + name);
         return true;
@@ -225,9 +254,12 @@ public class UpdateProduct extends AppCompatActivity  {
 
     private boolean deleteProduct(String id, String name) {
         //getting the specified product reference
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Inventory").child(id);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userId = currentUser.getUid();
+
         //removing product
-        dR.removeValue();
+        databaseProducts.child(id).removeValue();
 
         Toast.makeText(getApplicationContext(), "Product Deleted", Toast.LENGTH_LONG).show();
         Log.d("PRODUCT", "Deleted product: " + name);
@@ -235,5 +267,11 @@ public class UpdateProduct extends AppCompatActivity  {
         bestBEntry.getText().clear();
         prod_exp_day.getText().clear();
         return true;
+    }
+
+    //Updates the data
+    private void updateUI(FirebaseUser user) {
+
+
     }
 }
