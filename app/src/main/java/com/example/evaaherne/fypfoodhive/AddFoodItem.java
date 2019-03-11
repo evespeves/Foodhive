@@ -1,9 +1,16 @@
 package com.example.evaaherne.fypfoodhive;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -13,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.evaaherne.fypfoodhive.Models.Product;
+import com.example.evaaherne.fypfoodhive.activities.HowToUse;
+import com.example.evaaherne.fypfoodhive.activities.ScanCodeAct;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -30,20 +39,26 @@ import androidx.core.app.NotificationManagerCompat;
 import static com.example.evaaherne.fypfoodhive.app.CHANNEL_ID;
 
 public class AddFoodItem extends BaseActivity {
-    ImageButton btnAdd;
+    Button btnAdd;
     Button btnInventory;
+    Button btnAddQR;
+
+    int finalDays;
+
     TextView expDays;
     EditText product_name;
-    EditText bestBEntry;
+    TextView bestBEntry;
     Spinner spinCategory;
+    EditText product_desc;
+   public static TextView QR_info;
 
     DatabaseReference databaseProducts;
     private FirebaseAuth mAuth;
 
 
-
-
     int notificationId = 01;
+    int notificationId2 = 02;
+    int notificationId3 = 03;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,23 +70,27 @@ public class AddFoodItem extends BaseActivity {
         //Database reference
         databaseProducts = FirebaseDatabase.getInstance().getReference("Inventory").child(useruid);
         // Check if user is signed in (non-null) and update UI accordingly.
+        Intent intent = getIntent();
 
         //Views
-        btnAdd = findViewById(R.id.btnAdd);
-
         product_name = findViewById(R.id.product_name);
+
         bestBEntry = findViewById(R.id.bestBEntry);
         spinCategory = findViewById(R.id.spinCategory);
+        product_desc = findViewById(R.id.product_desc);
+        QR_info = findViewById(R.id.QRInfo);
         expDays = findViewById(R.id.expDays);
-        btnInventory = findViewById(R.id.btnInventory);
 
+        btnInventory = findViewById(R.id.btnInventory);
+        btnAdd = findViewById(R.id.btnAdd);
+        btnAddQR = findViewById(R.id.btnAddQR);
 
         btnAdd.setOnClickListener(v -> {
             if (!validateForm()) {
                 return;
             }
-
             addProduct();
+            resetBoxes();
         });
 
         btnInventory.setOnClickListener(v -> {
@@ -80,8 +99,12 @@ public class AddFoodItem extends BaseActivity {
             setContentView(R.layout.activity_product_listings);
         });
 
+        btnAddQR.setOnClickListener((View v) -> startActivity(new Intent(getApplicationContext(), ScanCodeAct.class)));
+
+
         //onClick of bestBEntry
         bestBEntry.setOnClickListener(v -> {
+            hideKeyboard(AddFoodItem.this);
             final Calendar c = Calendar.getInstance();
             int mYear = c.get(Calendar.YEAR);
             int mMonth = c.get(Calendar.MONTH);
@@ -91,13 +114,20 @@ public class AddFoodItem extends BaseActivity {
             dateDialog.show();
 
         });
+
+        String title;
+        title = intent.getStringExtra("Title");
+        product_name.setText(title);
+
     }
 
 
 
+    /**
+     * Validates that all fields are filled in
+     */
     private boolean validateForm() {
         boolean valid = true;
-
         //Sets errors if fields are not filled in correctly
         String name = product_name.getText().toString();
         if (TextUtils.isEmpty(name)) {
@@ -107,12 +137,30 @@ public class AddFoodItem extends BaseActivity {
             product_name.setError(null);
         }
 
-        String date = bestBEntry.getText().toString();
-        if (TextUtils.isEmpty(date)) {
+        String pBBdate = bestBEntry.getText().toString();
+        if (TextUtils.isEmpty(pBBdate)) {
             bestBEntry.setError("Required.");
             valid = false;
         } else {
             bestBEntry.setError(null);
+        }
+
+        String pDesc = product_desc.getText().toString();
+        if (TextUtils.isEmpty(pDesc)) {
+            product_desc.setText(" ");
+        }
+
+        String pQRInfo = QR_info.getText().toString();
+        if (TextUtils.isEmpty(pQRInfo)) {
+            QR_info.setText(" ");
+        }
+
+        String days = String.valueOf(expDays.getText());
+        if (TextUtils.isEmpty(days)) {
+            expDays.setError("Required.");
+            valid = false;
+        } else {
+            expDays.setError(null);
         }
 
         return valid;
@@ -186,8 +234,11 @@ public class AddFoodItem extends BaseActivity {
             bestBEntry.setText(format);
 
             String todayDate = new SimpleDateFormat("dd/MMM/YYYY", Locale.getDefault()).format(new Date());
-              String countDays = getCountOfDays(todayDate, format);
-              expDays.setText(countDays);
+               String countDays = getCountOfDays(todayDate, format);
+                String input = countDays+ " day(s)";
+
+              expDays.setText(input);
+            finalDays = Integer.parseInt(countDays);
 
 
         }
@@ -268,20 +319,21 @@ public class AddFoodItem extends BaseActivity {
         String ProdName = product_name.getText().toString().trim();
         String spinCat = spinCategory.getSelectedItem().toString();
         String bestBefore = bestBEntry.getText().toString().trim();
+        String prodDesc = product_desc.getText().toString().trim();
         String expireDays = expDays.getText().toString().trim();
-
-        int finalDays = Integer.parseInt(expireDays);
+        String ProdQR = QR_info.getText().toString().trim();
 
 
 
 
         //IF THE VIEW IS NOT EMPTY FOR NAME
         if (!TextUtils.isEmpty(ProdName)) {
-
-            String prodId = databaseProducts.push().getKey(); //Get a unique key for the id
-            Product product = new Product(prodId, ProdName, bestBefore, spinCat, finalDays ); //OBJ INSTANSTIATION
-
             //SETS DB VALUES
+            String prodId = databaseProducts.push().getKey(); //Get a unique key for the id
+            Product product = new Product(prodId, ProdName,  bestBefore, spinCat, prodDesc, finalDays, ProdQR); //OBJ INSTANSTIATION
+
+
+            assert prodId != null;
             databaseProducts.child(prodId).setValue(product);
 
             expiryAlert(finalDays);
@@ -291,18 +343,80 @@ public class AddFoodItem extends BaseActivity {
 
             //Toast is a short message that pops up on screen
             Toast.makeText(this, "Product  added", Toast.LENGTH_LONG).show();
-            product_name.getText().clear();
-            bestBEntry.getText().clear();
+
 
         } else if(!TextUtils.isEmpty(ProdName)&&!TextUtils.isEmpty(bestBefore)) {
             Toast.makeText(this, "Missing details! Please fill in all fields.", Toast.LENGTH_LONG).show();
         }
     }
 
-
-    //Updates the data
-    private void updateUI(FirebaseUser user) {
-        hideProgressDialog();
+    private void resetBoxes(){
+        product_name.getText().clear();
+        bestBEntry.setText("");
+        bestBEntry.setHint(getString(R.string.bestBefore));
+        expDays.setText("");
+        expDays.setHint(getString(R.string.DaysUntilExpiry));
+        QR_info.setText("");
+        QR_info.setHint(getString(R.string.QR_Info));
+        product_desc.setText("");
+        product_desc.setHint(getString(R.string.product_desc));
 
     }
+
+    /**
+     * https://gist.github.com/lopspower/6e20680305ddfcb11e1e
+     *
+     */
+
+    public static void hideKeyboard(Activity activity) {
+        View view = activity.findViewById(android.R.id.content);
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    /** How to add a menu bar
+     *  https://www.youtube.com/watch?v=62y6Ad2SJEQ&ab_channel=PRABEESHRK**/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.app_bar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
+        case R.id.inventory:
+            Intent i = new Intent(getApplicationContext(), ProductListings.class);
+            startActivity(i);
+            setContentView(R.layout.activity_product_listings);
+            return(true);
+        case R.id.home:
+            Intent b = new Intent(getApplicationContext(), MenuActivity.class);
+            startActivity(b);
+            setContentView(R.layout.activity_menu);
+            return(true);
+        case R.id.add:
+            Intent c = new Intent(getApplicationContext(), AddFoodItem.class);
+            startActivity(c);
+            setContentView(R.layout.activity_add_food_item);
+            return(true);
+        case R.id.account:
+            Intent a = new Intent(getApplicationContext(), UserProfile.class);
+            startActivity(a);
+            setContentView(R.layout.activity_user_listings);
+            return(true);
+        case R.id.howToUse:
+            Intent d = new Intent(getApplicationContext(), HowToUse.class);
+            startActivity(d);
+            setContentView(R.layout.activity_how_to_use);
+            return(true);
+    }
+        return(super.onOptionsItemSelected(item));
+    }
+
+
+
+
 }

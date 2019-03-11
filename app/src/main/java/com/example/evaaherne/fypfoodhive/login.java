@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -72,7 +73,6 @@ public class login extends BaseActivity implements
     }
     // [END on_start_check_user]
 
-//
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
         if (!validateForm()) {
@@ -89,9 +89,16 @@ public class login extends BaseActivity implements
                         Log.d(TAG, "signInWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
                         updateUI(user);
-                        Intent i = new Intent(getApplicationContext(), UserProfile.class);
-                        startActivity(i);
-                        setContentView(R.layout.activity_user_listings);
+                            if(user.isEmailVerified()) {
+                                Intent i = new Intent(getApplicationContext(), UserProfile.class);
+                                startActivity(i);
+                                setContentView(R.layout.activity_user_listings);
+                            }
+                            else{
+                                Toast.makeText(login.this,
+                                        "Please Verify your email before continuing.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -167,17 +174,32 @@ public class login extends BaseActivity implements
     //Updates the data
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
-        if (user != null) {
-            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt,
-                    user.getEmail(), user.isEmailVerified()));
-
-
-//            //ENABLES & DISABLES VIEWS
+        //If user is not null null then..
+        if (user != null && user.isEmailVerified()) {
+           mStatusTextView.setText(getString(R.string.emailpassword_status_fmt,
+                  user.getEmail(), user.isEmailVerified()));
 
            findViewById(R.id.emailSignInButton).setVisibility(View.GONE);
           findViewById(R.id.signOutButton).setVisibility(View.VISIBLE);
         findViewById(R.id.verifyEmailButton).setEnabled(!user.isEmailVerified());
-        } else {
+
+            Intent i = new Intent(getApplicationContext(), MenuActivity.class);
+            startActivity(i);
+            setContentView(R.layout.activity_menu);
+        }
+        else if (user != null && !user.isEmailVerified() ) {
+            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt,
+                    user.getEmail(), user.isEmailVerified()));
+
+            findViewById(R.id.emailSignInButton).setVisibility(View.GONE);
+            findViewById(R.id.signOutButton).setVisibility(View.VISIBLE);
+            findViewById(R.id.verifyEmailButton).setVisibility(View.VISIBLE);
+
+            Toast.makeText(login.this,
+                    "Please Verify your email before continuing.",
+                    Toast.LENGTH_SHORT).show();
+        }
+        else {
             mStatusTextView.setText(R.string.signed_out);
 
             findViewById(R.id.emailSignInButton).setVisibility(View.VISIBLE);

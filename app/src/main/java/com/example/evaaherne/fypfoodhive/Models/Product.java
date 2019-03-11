@@ -5,8 +5,11 @@ package com.example.evaaherne.fypfoodhive.Models;
 public class Product {
     public String prodId;
     public String prodName;
+
     public String prodBBDate;
     public String prodCategory;
+    public String prodDesc;
+    public String qrInfo;
     public int expDay;
 
 
@@ -16,13 +19,16 @@ public class Product {
     }
 
 
-    public Product(String prodId, String prodName, String prodBBDate, String prodCategory, int expDay) {
+    public Product(String prodId, String prodName, String prodBBDate, String prodCategory, String prodDesc, int expDay, String qrInfo) {
 
         this.prodId = prodId;
-       this.prodName = prodName;
+        this.prodName = prodName;
+
         this.prodBBDate = prodBBDate;
         this.prodCategory = prodCategory;
+        this.prodDesc = prodDesc;
         this.expDay = expDay;
+        this.qrInfo = qrInfo;
 
     }
 
@@ -65,5 +71,22 @@ public class Product {
 
     public void setExpDay(int expDay) {
         this.expDay = expDay;
+    }
+
+
+    public String getProdDesc() {
+        return prodDesc;
+    }
+
+    public void setProdDesc(String prodDesc) {
+        this.prodDesc = prodDesc;
+    }
+
+    public String getQrInfo() {
+        return qrInfo;
+    }
+
+    public void setQrInfo(String qrInfo) {
+        this.qrInfo = qrInfo;
     }
 }

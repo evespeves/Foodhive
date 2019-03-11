@@ -11,17 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
-        android:layout_marginBottom="174dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="171dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/buttonRegister"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
-            android:layout_width="162dp"
-            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="230dp"
+            android:layout_height="107dp"
             android:text="@string/register"
             android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -33,10 +35,9 @@
 
         <Button
             android:id="@+id/buttonLogin"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="147dp"
             android:layout_height="match_parent"
-            android:layout_alignTop="@+id/btnHolder"
             android:paddingLeft="@dimen/activity_vertical_margin"
             android:text="@string/login"
             android:textSize="36sp"

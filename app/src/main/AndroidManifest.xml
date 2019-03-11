@@ -9,17 +9,23 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/inventory"
+        android:icon="@drawable/launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.activity_text_reader"/>
+        <activity android:name=".activities.RecyclingInfo"></activity>
+        <activity android:name=".activities.HowToUse" />
+        <activity android:name=".activities.ScanCodeAct" />
+        <activity android:name=".activities.QRScanner" />
         <activity android:name=".ProductListings" />
         <activity android:name=".recipeSuggestion" />
         <activity android:name=".MenuActivity" />
@@ -33,15 +39,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".login" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".TextRecognitionActivity" />
-        <activity android:name=".PhotoCaptureActivity" />
-        <activity android:name=".UpdateProduct" />
         <activity
-            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/AppTheme" />
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".login"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".UpdateProduct" />
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"

@@ -12,7 +12,6 @@
 
     <!-- Strings related to register -->
     <string name="text_register">Register</string>
-
     <string name="edit_name">enter name</string>
     <string name="email">Email</string>
     <string name="edit_email">email</string>
@@ -50,6 +49,7 @@
 
     <!--ADD PRODUCT ACTIVITY-->
     <string name="product_name">Product Name</string>
+    <string name="product_type">Product Specific - e.g. oil, garlic, korma</string>
     <string-array name="spinnerFoodItems">
         <item>Perishable</item>
         <item>Non-Perishable</item>
@@ -59,8 +59,40 @@
     <string name="bestBefore">Best Before Date</string>
     <string name="category">Category</string>
     <string name="DaysUntilExpiry">Day(s)</string>
-    <string name="MonthsUntilExpiry">Month(s)</string>
-    <string name="YearsUntilExpiry">Year(s)</string>
+    <string name="product_desc">Product description</string>
+    <string name="QR_Info">QR code information</string>
+    <string name="QR">Add QR</string>
+
+    <!--UPDATE PRODUCT ACTIVITY-->
+    <string name="EditItem">Edit Item</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="search_recipe">Search Recipes</string>
+    <string name="editQR">Edit QR</string>
+
+    <!--NAVIGATION DRAWER -->
+
+    <string name="food_inventory">Inventory</string>
+
+
+    <!--MENU -->
+    <string name="home">Home</string>
+    <string name="add_food">Add food</string>
+    <string name="user">User Profile</string>
+    <string name="howTo">How to Use</string>
+
+
+    <string name="Open">Open</string>
+    <string name="Close">Close</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_test_drawer">testDrawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 </resources>

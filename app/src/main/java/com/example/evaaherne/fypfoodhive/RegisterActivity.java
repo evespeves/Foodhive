@@ -1,6 +1,8 @@
 package com.example.evaaherne.fypfoodhive;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 
@@ -8,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -53,7 +56,6 @@ public class RegisterActivity extends BaseActivity  {
 
 
        //VIEWS
-        listViewUsers = findViewById(R.id.listViewUsers);
         editTextName = findViewById(R.id.editTextName);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
@@ -65,7 +67,7 @@ public class RegisterActivity extends BaseActivity  {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // Check if user is signed in (non-null) and update UI accordingly.
-  ;
+
 
 
         //APPLIES VALUES TO THE DB IF CHECKED/NOT CHECKED
@@ -140,7 +142,7 @@ public class RegisterActivity extends BaseActivity  {
         } else {
             editTextPassword.setError(null);
         }
-
+        hideKeyboard(this);
         return valid;
     }
 
@@ -169,6 +171,13 @@ public class RegisterActivity extends BaseActivity  {
         }
     }
 
+    public static void hideKeyboard(Activity activity) {
+        View view = activity.findViewById(android.R.id.content);
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
 
 }
 

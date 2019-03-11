@@ -8,7 +8,7 @@
     <LinearLayout
         android:id="@+id/emailPasswordFields"
         android:layout_width="403dp"
-        android:layout_height="match_parent"
+        android:layout_height="619dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
@@ -52,13 +52,16 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/userInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp">
 
         <TextView
             android:id="@+id/titleText"
@@ -70,8 +73,10 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/emailpassword_title_text"
-            android:textSize="30sp"
+            android:gravity="center_horizontal"
+            android:text="@string/login"
+            android:textColor="@color/darkTeal"
+            android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,8 +93,9 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
+            android:gravity="center_horizontal"
             android:text="@string/signed_out"
-            android:textSize="30sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -100,15 +106,21 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/signInBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="32dp"
-        android:orientation="horizontal">
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="120dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp">
 
         <Button
             android:id="@+id/emailSignInButton"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -128,13 +140,16 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/btnoptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginBottom="127dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp">
 
         <Button
             android:id="@+id/verifyEmailButton"
@@ -144,6 +159,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/verify_email"
@@ -159,6 +175,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"

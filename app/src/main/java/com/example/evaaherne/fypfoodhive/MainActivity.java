@@ -3,15 +3,25 @@ package com.example.evaaherne.fypfoodhive;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.evaaherne.fypfoodhive.activities.HowToUse;
+import com.example.evaaherne.fypfoodhive.activities.QRScanner;
+import com.google.android.material.navigation.NavigationView;
+
+import org.w3c.dom.Text;
+
 
 public class MainActivity extends AppCompatActivity {
+
 
 
     Button buttonLogin;
@@ -28,27 +38,21 @@ public class MainActivity extends AppCompatActivity {
 
         //WHEN BUTTON CLICKED GOES TO CLASS
         buttonLogin.setOnClickListener(v -> {
-            Intent i = new Intent(getApplicationContext(), AddFoodItem.class);
-            startActivity(i);
-            setContentView(R.layout.activity_add_food_item);
-        });
-
-        //WHEN BUTTON CLICKED GOES TO CLASS
-        buttonRegister.setOnClickListener(v -> {
-            Intent i = new Intent(getApplicationContext(),  login.class);
+            Intent i = new Intent(getApplicationContext(), login.class);
             startActivity(i);
             setContentView(R.layout.activity_login);
         });
 
+        //WHEN BUTTON CLICKED GOES TO CLASS
+        buttonRegister.setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(),  RegisterActivity.class);
+            startActivity(i);
+            setContentView(R.layout.activity_register);
+        });
+
+
     }
 
-    /** How to add a menu bar
-     *  https://www.youtube.com/watch?v=62y6Ad2SJEQ&ab_channel=PRABEESHRK**/
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.app_bar_menu, menu);
-        return true;
-    }
 }
+
 

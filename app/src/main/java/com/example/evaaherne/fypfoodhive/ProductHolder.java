@@ -9,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.evaaherne.fypfoodhive.Models.Product;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -32,19 +34,25 @@ import static com.example.evaaherne.fypfoodhive.app.CHANNEL_ID;
  https://github.com/miketraverso/FaveBakes/blob/feature/app-indexing-finish/app/src/main/res/layout/activity_bakery_details.xml
  */
 public class ProductHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private FirebaseAuth mAuth;
+    FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+    String useruid = user.getUid();
+    DatabaseReference databaseProducts;
 
-    private FirebaseDatabase db = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = db.getReference("Inventory");
 
     @BindView(R.id.prod_name) TextView productName;
     @BindView(R.id.prod_cat) TextView prodCategory;
     @BindView(R.id.prod_bb_date) TextView prodExpDate;
     @BindView(R.id.prod_exp_days) TextView expDays;
+    @BindView(R.id.prod_desc) TextView productDesc;
+    @BindView(R.id.QRInfo) TextView QRInfo;
 
     private Product product;
     private Context context;
 
     int notificationId = 01;
+    int notificationId2 = 01;
+    int notificationId3 = 01;
 
     public ProductHolder(Context context, View itemView) {
 
@@ -64,26 +72,44 @@ public class ProductHolder extends RecyclerView.ViewHolder implements View.OnCli
         this.productName.setText(product.prodName);
         this.prodCategory.setText(product.prodCategory);
         this.prodExpDate.setText(product.prodBBDate);
+        this.productDesc.setText(product.prodDesc);
+        this.QRInfo.setText(product.qrInfo);
 
         //Todays date and expiry date to get count of days
         String todayDate = new SimpleDateFormat("dd/MMM/YYYY", Locale.getDefault()).format(new Date());
         String expireDays = getCountOfDays(todayDate, product.prodBBDate);
-         int countDays = Integer.parseInt(expireDays);
-        this.expDays.setText(String.valueOf(countDays));
+        int countDays = Integer.parseInt(expireDays);
+        //Sets days until expiry to textbox
+        this.expDays.setText(new StringBuilder().append(expireDays).append(" day(s) until expiry").toString());
+
+
+        //Assigning variables to the retrievals from database
+        String prodId = this.product.getProdId();
+        String prodName = this.productName.getText().toString();
+        String prodBB = this.prodExpDate.getText().toString();
+        String prodCategory = this.prodCategory.getText().toString();
+        String prodDesc = this.productDesc.getText().toString();
+        String qrInfo = this.QRInfo.getText().toString();
+
+        //Update the countdays in db
+        updateProduct(prodId, prodName,  prodBB, prodCategory, prodDesc, countDays, qrInfo);
+
 
 
         //Changes colour of text if item due to expire
         if (countDays <= -1){
             expDays.setTextColor(ContextCompat.getColor(context, R.color.expired));
-         //  String prodName = productName.getText().toString();
-         //   addToExpiredList(prodName);
+            productName.setTextColor(ContextCompat.getColor(context, R.color.expired));
+
         }
         if (countDays >= 0){
             expDays.setTextColor(ContextCompat.getColor(context, R.color.gray));
         }
 
-        expiryAlert(countDays);
-        //updateProducts(countDays);
+//        expiryAlert(countDays);
+//        onDayExpiryAlert(countDays);
+        expiredAlert(countDays);
+        //updateProduct(prodId, prodName, prodBB);
     }
 
     @Override
@@ -91,22 +117,28 @@ public class ProductHolder extends RecyclerView.ViewHolder implements View.OnCli
         //  Handle the onClick event for the ViewHolder
         if (this.product!= null) {
             //declarations for text associated with the views
-           String prodName = this.product.prodName;
-           String id = this.product.prodId;
-           String category = this.product.prodCategory;
-           String bbDate = this.product.prodBBDate;
-           int expDays = this.product.expDay;
+            //Assigning variables to the retrievals from database
+            String prodId = this.product.getProdId();
+            String prodName = this.productName.getText().toString();
+            String prodBB = this.prodExpDate.getText().toString();
+            String prodCategory = this.prodCategory.getText().toString();
+            String prodDesc = this.productDesc.getText().toString();
+            String prodDays = this.expDays.getText().toString();
+            String qrInfo = this.QRInfo.getText().toString();
+
 
             /**
              * Bring data from one item to another
              * https://stackoverflow.com/questions/4233873/how-do-i-get-extra-data-from-intent-on-android
              */
             Intent intent = new Intent(context, UpdateProduct.class);
-            intent.putExtra("ProdId", id);
+            intent.putExtra("ProdId", prodId);
             intent.putExtra("Name", prodName);
-            intent.putExtra("Category", category);
-            intent.putExtra("Date", bbDate);
-            intent.putExtra("ExpDays", expDays);
+            intent.putExtra("Date", prodBB);
+            intent.putExtra("Category", prodCategory);
+            intent.putExtra("Desc", prodDesc);
+            intent.putExtra("Days", prodDays);
+            intent.putExtra("QR", qrInfo);
 
             context.startActivity(intent);
 
@@ -114,6 +146,24 @@ public class ProductHolder extends RecyclerView.ViewHolder implements View.OnCli
 
     }
 
+    /**
+     *
+     * Updates the database with the new expiry days information
+     */
+    private boolean updateProduct(String id, String name, String date, String category, String desc, int days, String qrInfo) {
+        //getting the specified product reference
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userId = currentUser.getUid();
+        databaseProducts = FirebaseDatabase.getInstance().getReference("Inventory").child(userId);
+
+        //updating product
+        Product product = new Product(id, name, date,category, desc, days , qrInfo);
+        databaseProducts.child(id).setValue(product);
+        //Toast.makeText(getApplicationContext(), "Product Updated", Toast.LENGTH_LONG).show();
+        Log.d("PRODUCT", "updated product: " + name);
+        return true;
+    }
 
 
     /** Calculation of days in total until expiry
@@ -187,7 +237,7 @@ public class ProductHolder extends RecyclerView.ViewHolder implements View.OnCli
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.mipmap.inventory)
                     .setContentTitle("Expiry Alert")
-                    .setContentText("A product will expire in " + expiryDays + " day(s)")
+                    .setContentText(product.getProdName() + " will expire in " + expiryDays + " day(s)")
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
@@ -203,13 +253,13 @@ public class ProductHolder extends RecyclerView.ViewHolder implements View.OnCli
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.mipmap.inventory)
                     .setContentTitle("Expiry Alert")
-                    .setContentText("product will expire today!")
+                    .setContentText(product.getProdName() + " will expire today!")
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
 
 // notificationId is a unique int for each notification that you must define
-            notificationManager.notify(notificationId, mBuilder.build());
+            notificationManager.notify(notificationId2, mBuilder.build());
         }
     }
 
@@ -217,14 +267,13 @@ public class ProductHolder extends RecyclerView.ViewHolder implements View.OnCli
         if (expiryDays <= -1) {
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.mipmap.inventory)
-                    .setContentTitle("Expiry Alert")
-                    .setContentText("A product has expired by " + expiryDays + " day(s)")
+                    .setContentTitle(product.getProdName() + " has expired by " + expiryDays + " day(s)")
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
 
 // notificationId is a unique int for each notification that you must define
-            notificationManager.notify(notificationId, mBuilder.build());
+            notificationManager.notify(notificationId3, mBuilder.build());
         }
     }
 

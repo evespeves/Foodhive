@@ -3,6 +3,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/splash"/>
+            android:src="@drawable/splashscreen"/>
     </item>
 </layer-list>

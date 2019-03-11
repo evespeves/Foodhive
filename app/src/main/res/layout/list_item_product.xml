@@ -35,20 +35,32 @@
             android:id="@+id/prod_cat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="30sp" />
+            android:textSize="@dimen/foodItemText" />
 
         <TextView
             android:id="@+id/prod_bb_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="30sp" />
+            android:textSize="@dimen/foodItemText" />
 
         <TextView
             android:id="@+id/prod_exp_days"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacer_10"
-            android:textSize="30sp" />
+            android:textSize="@dimen/foodItemText" />
+
+        <TextView
+            android:id="@+id/prod_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/foodItemText" />
+
+        <TextView
+            android:id="@+id/QRInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/foodItemText" />
+
     </LinearLayout>
 
 </RelativeLayout>

@@ -2,19 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item
+        android:id="@+id/app_bar_search"
+        android:icon="@drawable/search"
+        android:title="Search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always"
+        />
     <item android:id="@+id/add"
         android:icon="@drawable/add"
         android:title="@string/add_food"
         app:showAsAction="always"/>
+
+
     <item android:id="@+id/inventory"
         android:icon="@mipmap/inventory"
-        android:title="@string/food_inventory"
-        app:showAsAction="always"/>
+        android:title="@string/food_inventory" />
 
     <item android:id="@+id/home"
         android:icon="@drawable/home"
-        android:title="@string/home"
-        app:showAsAction="always"/>
+        android:title="@string/home" />
 
     <item android:id="@+id/account"
         android:title="@string/user"/>

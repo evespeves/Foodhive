@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 public class recipeSuggestion extends AppCompatActivity {
 
+    /** Webview in android
+     * https://developer.android.com/guide/webapps/webview
+     */
+
     private WebView webView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

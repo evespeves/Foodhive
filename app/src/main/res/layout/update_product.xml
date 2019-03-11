@@ -1,80 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UpdateProduct">
 
-    <EditText
-        android:id="@+id/product_name"
-        android:layout_width="288dp"
-        android:layout_height="53dp"
-        android:ems="10"
-        android:hint="@string/product_name"
-        android:inputType="textPersonName"
-        android:singleLine="false"
-        tools:focusable="auto"
-        tools:layout_editor_absoluteX="62dp"
-        tools:layout_editor_absoluteY="70dp" />
+    <LinearLayout
+        android:id="@+id/itemDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="362dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:orientation="vertical">
 
-    <Spinner
-        android:id="@+id/prod_cat"
-        android:layout_width="288dp"
-        android:layout_height="53dp"
-        android:layout_below="@id/editTextName"
-        android:entries="@array/spinnerFoodItems">
-    </Spinner>
-    <EditText
-        android:id="@+id/bestBEntry"
-        android:layout_width="275dp"
-        android:layout_height="53dp"
-        android:clickable="false"
-        android:editable="false"
-        android:ems="10"
-        android:hint="@string/bestBefore"
-        android:phoneNumber="false"
-        tools:clickable="false"
-        tools:layout_editor_absoluteX="74dp"
-        tools:layout_editor_absoluteY="212dp" />
-    <EditText
-        android:id="@+id/prod_exp_days"
-        android:layout_width="275dp"
-        android:layout_height="53dp"
-        android:clickable="false"
-        android:ems="10"
-        android:hint="@string/DaysUntilExpiry"
-        tools:clickable="false"
-        tools:layout_editor_absoluteX="74dp"
-        tools:layout_editor_absoluteY="212dp" />
+        <TextView
+            android:id="@+id/txtEditItem"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_marginStart="124dp"
+            android:layout_marginLeft="124dp"
+            android:layout_marginTop="@dimen/spacer_20"
+            android:layout_marginBottom="@dimen/spacer_5"
+            android:text="@string/EditItem"
+            android:textColor="@color/darkTeal"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <EditText
+            android:id="@+id/product_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacer_10"
+            android:ems="10"
+            android:focusedByDefault="true"
+            android:hint="@string/product_name"
+            android:inputType="textCapSentences"
+            android:nextFocusDown="@id/spinCategory"
+            android:paddingTop="@dimen/spacer_5"
+            android:paddingBottom="@dimen/spacer_20"
+            android:singleLine="false"
+            android:textSize="@dimen/foodItemText"
+            tools:layout_editor_absoluteX="62dp"
+            tools:layout_editor_absoluteY="70dp" />
+
+        <Spinner
+            android:id="@+id/spinCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacer_10"
+            android:entries="@array/spinnerFoodItems"
+            android:nextFocusDown="@id/product_desc"
+            android:paddingBottom="@dimen/spacer_5"
+            android:spinnerMode="dropdown"
+            android:textSize="@dimen/foodItemText"
+            tools:layout_editor_absoluteX="63dp"
+            tools:layout_editor_absoluteY="120dp"
+            tools:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/product_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacer_10"
+            android:ems="10"
+            android:focusable="auto"
+            android:hint="@string/product_desc"
+            android:inputType="textCapSentences"
+            android:nextFocusDown="@id/bestBEntry"
+            android:singleLine="false"
+            android:textSize="@dimen/foodItemText"
+            tools:focusable="auto"
+            tools:layout_editor_absoluteX="62dp"
+            tools:layout_editor_absoluteY="70dp" />
+
+        <TextView
+            android:id="@+id/bestBEntry"
+            android:layout_width="375dp"
+            android:layout_height="38dp"
+            android:layout_marginLeft="@dimen/spacer_5"
+            android:layout_marginBottom="@dimen/spacer_10"
+            android:ems="10"
+            android:hint="@string/bestBefore"
+            android:paddingTop="@dimen/spacer_5"
+            android:textSize="@dimen/foodItemText"
+            tools:layout_editor_absoluteX="74dp"
+            tools:layout_editor_absoluteY="212dp" />
+
+        <TextView
+            android:id="@+id/expDays"
+            android:layout_width="386dp"
+            android:layout_height="42dp"
+            android:layout_marginLeft="@dimen/spacer_5"
+            android:layout_marginBottom="@dimen/spacer_10"
+            android:hint="@string/DaysUntilExpiry"
+            android:paddingTop="@dimen/spacer_5"
+            android:textSize="@dimen/foodItemText" />
+
+        <TextView
+            android:id="@+id/QRInfo"
+            android:layout_width="375dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="@dimen/spacer_5"
+            android:layout_marginBottom="@dimen/spacer_10"
+            android:hint="@string/QR_Info"
+            android:textSize="@dimen/foodItemText" />
+
+
+    </LinearLayout>
+
 
     <LinearLayout
-        android:id="@+id/actionBButtons"
+        android:id="@+id/actionButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="65dp"
+        android:layout_above="@+id/btnsRecipe"
+        android:layout_below="@+id/itemDetails"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="6dp"
+        android:gravity="center_horizontal"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/buttonUpdateProduct"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Update" />
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/update"
+            android:textSize="@dimen/buttonSize"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
             android:id="@+id/buttonDeleteProduct"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Delete" />
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/delete"
+            android:textSize="@dimen/buttonSize"
+            app:layout_constraintBottom_toTopOf="@+id/itemDetails"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/btnAddQR"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/editQR"
+            android:textSize="@dimen/buttonSize"
+            app:layout_constraintBottom_toTopOf="@+id/itemDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnRecipes"
+    <LinearLayout
+        android:id="@+id/btnsRecipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search Recipes" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnRecipes"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/search_recipe"
+            android:textSize="@dimen/buttonSize"
+            app:layout_constraintBottom_toTopOf="@+id/itemDetails"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </LinearLayout>
 
 
 </LinearLayout>
