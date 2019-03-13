@@ -17,38 +17,25 @@ public class MenuActivity extends AppCompatActivity {
 
     Button btnAddItem;
     Button btnInventory;
-
+    Button btnOcr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
         //BUTTONS
-        Button btnAddItem = findViewById(R.id.btnAddItem);
-        Button btnInventory = findViewById(R.id.btnInventory);
-        Button btnOcr = findViewById(R.id.btnOcr);
+        btnAddItem = findViewById(R.id.btnAddItem);
+        btnInventory = findViewById(R.id.btnInventory);
+        btnOcr = findViewById(R.id.btnOcr);
 
         //WHEN BUTTON CLICKED GOES TO CLASS
-        btnAddItem.setOnClickListener(v -> {
-            Intent i = new Intent(getApplicationContext(), AddFoodItem.class);
-            startActivity(i);
-            setContentView(R.layout.activity_add_food_item);
-        });
-
+        btnAddItem.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), AddFoodItem.class)));
 
         //WHEN BUTTON CLICKED GOES TO CLASS
-        btnInventory.setOnClickListener(v -> {
-            Intent i = new Intent(getApplicationContext(),  ProductListings.class);
-            startActivity(i);
-            setContentView(R.layout.activity_product_listings);
-        });
+        btnInventory.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), ProductListings.class)));
 
         //WHEN BUTTON CLICKED GOES TO CLASS
-        btnOcr.setOnClickListener(v -> {
-            Intent i = new Intent(getApplicationContext(),  TextDetector.class);
-            startActivity(i);
-            setContentView(R.layout.activity_text_detector);
-        });
+        btnOcr.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), TextDetector.class)));
     }
 
 
@@ -64,29 +51,19 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
         case R.id.inventory:
-            Intent i = new Intent(getApplicationContext(), ProductListings.class);
-            startActivity(i);
-            setContentView(R.layout.activity_product_listings);
+            startActivity(new Intent(getApplicationContext(), ProductListings.class));
             return(true);
         case R.id.home:
-            Intent b = new Intent(getApplicationContext(), MenuActivity.class);
-            startActivity(b);
-            setContentView(R.layout.activity_menu);
+            startActivity(new Intent(getApplicationContext(), MenuActivity.class));
             return(true);
         case R.id.add:
-            Intent c = new Intent(getApplicationContext(), AddFoodItem.class);
-            startActivity(c);
-            setContentView(R.layout.activity_add_food_item);
+            startActivity(new Intent(getApplicationContext(), AddFoodItem.class));
             return(true);
         case R.id.account:
-            Intent a = new Intent(getApplicationContext(), UserProfile.class);
-            startActivity(a);
-            setContentView(R.layout.activity_user_listings);
+            startActivity(new Intent(getApplicationContext(), UserProfile.class));
             return(true);
         case R.id.howToUse:
-            Intent d = new Intent(getApplicationContext(), HowToUse.class);
-            startActivity(d);
-            setContentView(R.layout.activity_how_to_use);
+            startActivity(new Intent(getApplicationContext(), HowToUse.class));
             return(true);
     }
         return(super.onOptionsItemSelected(item));

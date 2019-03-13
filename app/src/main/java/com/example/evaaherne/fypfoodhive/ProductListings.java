@@ -132,41 +132,25 @@ public class ProductListings extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.app_bar_menu_invent, menu);
+        menuInflater.inflate(R.menu.app_bar_menu, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
         case R.id.inventory:
-            Intent i = new Intent(getApplicationContext(), ProductListings.class);
-            startActivity(i);
-            setContentView(R.layout.activity_product_listings);
-            return(true);
-        case R.id.app_bar_search:
-//            Intent o = new Intent(getApplicationContext(), ProductListings.class);
-//            startActivity(o);
-//            setContentView(R.layout.activity_product_listings);
+            startActivity(new Intent(getApplicationContext(), ProductListings.class));
             return(true);
         case R.id.home:
-            Intent b = new Intent(getApplicationContext(), MenuActivity.class);
-            startActivity(b);
-            setContentView(R.layout.activity_menu);
+            startActivity(new Intent(getApplicationContext(), MenuActivity.class));
             return(true);
         case R.id.add:
-            Intent c = new Intent(getApplicationContext(), AddFoodItem.class);
-            startActivity(c);
-            setContentView(R.layout.activity_add_food_item);
+            startActivity(new Intent(getApplicationContext(), AddFoodItem.class));
             return(true);
         case R.id.account:
-            Intent a = new Intent(getApplicationContext(), UserProfile.class);
-            startActivity(a);
-            setContentView(R.layout.activity_user_listings);
+            startActivity(new Intent(getApplicationContext(), UserProfile.class));
             return(true);
         case R.id.howToUse:
-            Intent d = new Intent(getApplicationContext(), HowToUse.class);
-            startActivity(d);
-            setContentView(R.layout.activity_how_to_use);
+            startActivity(new Intent(getApplicationContext(), HowToUse.class));
             return(true);
     }
         return(super.onOptionsItemSelected(item));

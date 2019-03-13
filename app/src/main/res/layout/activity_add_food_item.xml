@@ -1,69 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".AddFoodItem">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="66dp"
-        android:layout_below="@+id/itemDetails"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="4dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnAdd"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/addItem"
-            android:textSize="@dimen/buttonSize"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/btnInventory"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/inventory"
-            android:textSize="@dimen/buttonSize"
-            app:layout_constraintBottom_toTopOf="@+id/itemDetails"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnAddQR"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="@string/QR"
-            android:textSize="@dimen/buttonSize"
-            app:layout_constraintBottom_toTopOf="@+id/itemDetails"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnTextDetect"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Text Detect"
-            android:textSize="@dimen/buttonSize"
-            app:layout_constraintBottom_toTopOf="@+id/itemDetails"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/itemDetails"
@@ -135,14 +79,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacer_10"
-            android:inputType="textCapSentences"
             android:ems="10"
             android:focusable="auto"
             android:hint="@string/product_desc"
+            android:inputType="textCapSentences"
+            android:nextFocusDown="@id/bestBEntry"
             android:singleLine="false"
             android:textSize="@dimen/foodItemText"
             tools:focusable="auto"
-            android:nextFocusDown="@id/bestBEntry"
             tools:layout_editor_absoluteX="62dp"
             tools:layout_editor_absoluteY="70dp" />
 
@@ -180,6 +124,76 @@
 
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true">
+
+        <Button
+            android:id="@+id/btnAddQR"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/spacer_20"
+            android:text="@string/QR"
+            android:textSize="@dimen/buttonSize"
+            app:layout_constraintBottom_toTopOf="@+id/itemDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/spacer_20"
+            android:text="@string/addItem"
+            android:textSize="@dimen/buttonSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnTextDetect"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Text Detect"
+            android:textSize="@dimen/buttonSize"
+            app:layout_constraintBottom_toTopOf="@+id/itemDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:layout_below="@+id/itemDetails"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="202dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnInventory"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/inventory"
+            android:textSize="@dimen/buttonSize"
+            app:layout_constraintBottom_toTopOf="@+id/itemDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

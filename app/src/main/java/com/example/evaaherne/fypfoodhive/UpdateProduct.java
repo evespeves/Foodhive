@@ -286,9 +286,7 @@ public class UpdateProduct extends AppCompatActivity  {
         Toast.makeText(getApplicationContext(), "Product Deleted", Toast.LENGTH_LONG).show();
         Log.d("PRODUCT", "Deleted product: " + name);
         clearFields();
-        Intent i = new Intent(getApplicationContext(),  ProductListings.class);
-        startActivity(i);
-        setContentView(R.layout.activity_product_listings);
+        startActivity(new Intent(getApplicationContext(), ProductListings.class));
 
         return true;
     }
